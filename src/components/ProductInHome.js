@@ -1,9 +1,13 @@
-function ProductInHome({ image, title }) {
+import { Link } from "react-router-dom";
+
+function ProductInHome({ image, title, link, product }) {
 
     return (
         <div>
             <img src={image} alt="" />
-            <h3>{title}</h3>
+            <Link to={`${link}`} state={product} >
+                <h3>{title}</h3>
+            </Link>
         </div>)
 }
 
