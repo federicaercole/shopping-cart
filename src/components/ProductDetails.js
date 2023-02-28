@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-function ProductDetails() {
+function ProductDetails({ handleClick }) {
     const location = useLocation();
     const product = location.state;
 
@@ -16,7 +16,7 @@ function ProductDetails() {
             </div>
             <p>{product.description}</p>
             <p>{product.price}€</p>
-            <button type="button">Add to cart</button>
+            <button type="button" onClick={() => handleClick(product)}>Add to cart</button>
         </>)
 
 }

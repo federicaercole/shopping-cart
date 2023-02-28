@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ cartQuantity }) {
+    const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
 
     return (
         <header>
@@ -8,7 +9,7 @@ function Header() {
                 <Link to="/">
                     Logo
                 </Link>
-                <button>Cart</button>
+                <Link to="/cart">Cart {totalObj > 0 && totalObj}</Link>
             </div>
             <nav>
                 <ul>
