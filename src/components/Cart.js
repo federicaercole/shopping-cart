@@ -8,6 +8,7 @@ function Cart({ cart, cartQuantity }) {
             {cart.map((item, index) => <p key={item.id}>{item.name} - Quantity {cartQuantity[index]} - Price {cartQuantity[index] * item.price}€</p>)}
 
             <p>Total: {totalPrice}€</p>
+            {totalPrice > 0 && <button type="button">Checkout</button>}
         </>
     )
 }

@@ -6,14 +6,14 @@ function Header({ cartQuantity }) {
     return (
         <header>
             <div>
-                <Link to="/">
-                    Logo
-                </Link>
+                <Link to="/">Good Board Games</Link>
                 <Link to="/cart">Cart {totalObj > 0 && totalObj}</Link>
             </div>
             <nav>
                 <ul>
-                    <li>Board Games</li>
+                    <Link to="/board-games">
+                        <li>Board Games</li>
+                    </Link>
                     <li>Card Games</li>
                     <li>Roleplaying Games</li>
                     <li>Accessories</li>

@@ -3,8 +3,10 @@ import Page from "./components/Page";
 import Footer from "./components/Footer";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import FilteredPage from "./components/FilteredPage";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { products } from "./components/products/products";
 
 
 function App() {
@@ -35,15 +37,16 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+    <>
       <Header cartQuantity={cartQuantity} />
       <Routes>
         <Route path="/" element={<Page />} />
         <Route path="/cart" element={<Cart cart={cart} cartQuantity={cartQuantity} />} />
         <Route path="/:id" element={<ProductDetails handleClick={handleClick} />} />
+        <Route path="/board-games" element={<FilteredPage products={products.filter((item) => item.category === "board-game")} />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </>
   )
 }
 
