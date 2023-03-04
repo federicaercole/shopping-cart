@@ -3,14 +3,17 @@ import { products } from "./products/products";
 
 function Page() {
 
-    return <article>
+    return <main>
         <h2>Latest Arrivals</h2>
-        <div className="latest">
-            <ProductCard image={products[0].images[0]} title={products[0].name} link={products[0].id} product={products[0]} />
-            <ProductCard image={products[1].images[0]} title={products[1].name} link={products[1].id} product={products[1]} />
+        <div className="category">
+            {products.filter(item => item.latestArrival === true).map(item => <ProductCard image={item.images[0]} title={item.name} product={item} link={item.id} key={item.id} />)}
         </div>
         <h2>Most-selled board games</h2>
-    </article>
+        <h2>Our Favorite Games</h2>
+        <div className="category">
+            {products.filter(item => item.highlight === true).map(item => <ProductCard image={item.images[0]} title={item.name} product={item} link={item.id} key={item.id} />)}
+        </div>
+    </main>
 }
 
 export default Page;

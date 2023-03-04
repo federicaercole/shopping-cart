@@ -1,10 +1,14 @@
 import ProductCard from "./ProductCard";
 
-function filteredPage({ products }) {
+function filteredPage({ products, title }) {
 
     return (
-        products.map((item) => <ProductCard key={item.id} image={item.images[0]} title={item.name} product={item} link={item.id} />)
-    )
+        <main>
+            <h1>{title}</h1>
+            <div className="category">
+                {products.map((item) => <ProductCard key={item.id} image={item.images[0]} title={item.name} product={item} link={item.id} />)}
+            </div>
+        </main>)
 
 }
 

@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 svg {
@@ -18,7 +19,14 @@ body {
   background-color: #1e1e20;
   color: white;
   font-family: 'Jost', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  max-width: 100vw;
 }
 
 .visually-hidden {
@@ -60,13 +68,30 @@ header>div {
   padding: 20px;
 }
 
-header>nav ul {
+nav ul {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+nav ul a {
+  text-decoration: none;
+}
+
+a.logo {
+  text-decoration: none;
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a.logo:hover svg,
+a.logo:active svg {
+  fill: #ea580c;
 }
 
 a.cart {
@@ -81,7 +106,7 @@ a.cart {
   align-items: center;
 }
 
-.cart svg {
+a.cart svg {
   margin-right: 10px;
 }
 
@@ -106,46 +131,57 @@ button:active svg {
   margin-bottom: 40px;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
 }
 
-.category>div {
+.category>article {
   background-color: #3c3c40;
   padding: 20px;
   border-radius: 20px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.category>div:hover,
-.category>div:active {
+.category>article:hover,
+.category>article:active {
   background-color: #ea580c;
 }
 
-.category>div a:hover,
-.category>div a:active {
+.category>article a:hover,
+.category>article a:active {
   color: #101011;
 }
 
-.category>div a::after {
+.category>article a::after {
   content: "";
   position: absolute;
   inset: 0;
 }
 
-article {
-  padding: 40px;
+.warning {
+  background-color: rgb(164, 2, 2);
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-top: 30px;
 }
 
-article>div img {
-  max-width: 200px;
+main {
+  padding: 40px;
+  width: 100%;
 }
 
 h1 {
   font-size: 4rem;
+  line-height: 4.5rem;
+  padding-bottom: 5px;
 }
 
 
 h2 {
-  font-size: 2.3rem;
+  font-size: 2rem;
   margin-bottom: 30px;
 }
 
@@ -159,10 +195,18 @@ h1+div {
   margin-top: 30px
 }
 
+.category article>img {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.cartProduct div>img {
+  max-width: 150px;
+}
+
 .featured {
   object-fit: cover;
   cursor: zoom-in;
-  box-sizing: border-box;
 }
 
 .single-product img {
@@ -172,10 +216,6 @@ h1+div {
 .single-product h1 {
   margin: 0;
   border: 0;
-}
-
-.single-product h1+p {
-  margin: 0;
 }
 
 .price {
@@ -190,7 +230,7 @@ h1+div {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   cursor: pointer;
 }
 
@@ -198,7 +238,6 @@ h1+div {
   max-height: 130px;
   max-width: 130px;
   object-fit: cover;
-  box-sizing: border-box;
 }
 
 .single-product {
@@ -216,7 +255,6 @@ input {
   border: 0;
   border-radius: 10px;
   padding: 10px;
-  box-sizing: border-box;
 }
 
 button {
@@ -228,6 +266,17 @@ button {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+button:disabled,
+button:disabled:hover {
+  cursor: auto;
+  color: #3c3c40;
+  border-color: #3c3c40;
+}
+
+button:disabled svg {
+  fill: #3c3c40;
 }
 
 input:invalid {
@@ -261,6 +310,12 @@ button.cart {
   border-radius: 10px;
 }
 
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -277,7 +332,6 @@ button.cart {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .modal>img {
@@ -303,7 +357,7 @@ h2+div {
 .cartProduct {
   display: grid;
   border-bottom: 3px solid white;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .cartProduct h2 {
@@ -331,12 +385,59 @@ p+button {
 
 button[value="minus"]+button {
   height: 42px;
-  box-sizing: border-box;
 }
 
-@media screen and (min-width: 900px) {
+footer {
+  background-color: #101011;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+a:hover>svg *,
+a:active>svg * {
+  fill: #ea580c;
+}
+
+@media screen and (min-width: 800px) {
   .featured {
-    max-width: 600px;
-    max-height: 600px;
+    width: 320px;
+    height: 320px;
+  }
+
+  .single-product {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .thumbnails img {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .featured {
+    width: 450px;
+    height: 450px;
+  }
+
+  .thumbnails img {
+    height: 130px;
+    width: 130px;
+  }
+
+  .modal {
+    width: auto;
+  }
+
+  .modal>img {
+    max-width: 800px;
+    margin: 0 auto;
   }
 }
