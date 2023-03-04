@@ -12,7 +12,7 @@ export const products = [
         Ages 10+, 90-120 minute playing time.`,
         images: [...productImages[0].rootImages],
         latestArrival: true,
-        totalSelled: 200,
+        totalSold: 200,
         highlight: false,
     },
     {
@@ -27,7 +27,7 @@ export const products = [
         For 1-5 players, plays in 90-120 minutes.`,
         images: [...productImages[1].scytheImages],
         latestArrival: false,
-        totalSelled: 100,
+        totalSold: 100,
         highlight: true,
     },
     {
@@ -41,7 +41,7 @@ export const products = [
         For 2 to 5 players. The average playtime is 30-60 minutes.`,
         images: [...productImages[2].ttrImages],
         latestArrival: false,
-        totalSelled: 347,
+        totalSold: 347,
         highlight: false,
     },
 
@@ -55,7 +55,7 @@ export const products = [
         For 2-4 players, playing time 50 – 100 mins`,
         images: [...productImages[3].marcoPoloImages],
         latestArrival: false,
-        totalSelled: 265,
+        totalSold: 265,
         highlight: true,
     },
     {
@@ -68,7 +68,7 @@ export const products = [
         You are bird enthusiasts—researchers, bird watchers, ornithologists, and collectors—seeking to discover and attract the best birds to your network of wildlife preserves.`,
         images: [...productImages[4].wingspanImages],
         latestArrival: true,
-        totalSelled: 479,
+        totalSold: 479,
         highlight: false,
     },
     {
@@ -81,7 +81,7 @@ export const products = [
         To play the game, you shuffle the 104 number cards, lay out four cards face-up to start the four rows, then deal ten cards to each player. Each turn, players simultaneously choose and reveal a card from their hand, then add the cards to the rows, with cards being placed in ascending order based on their number; specifically, each card is placed in the row that ends with the highest number that's below the card's number. When the sixth card is placed in a row, the owner of that card claims the other five cards and the sixth card becomes the first card in a new row.`,
         images: [...productImages[5].nimmtImages],
         latestArrival: false,
-        totalSelled: 464,
+        totalSold: 464,
         highlight: true,
     },
 
@@ -96,7 +96,7 @@ export const products = [
         The first player to reach fifteen prestige points by accumulating nobles and development cards triggers the end of the game.`,
         images: [...productImages[6].splendorImages],
         latestArrival: false,
-        totalSelled: 340,
+        totalSold: 340,
         highlight: false,
     },
 
@@ -109,7 +109,7 @@ export const products = [
         description: `Pandemic is a cooperative board game in which players work as a team to treat infections around the world while gathering resources for cures. First published in 2007, the game's unique combination of cooperative gameplay, engrossing premise, and compelling design have proved a hit with everyone from hardcore gamers to casual players. The Pandemic game line now includes multiple expansions and stand-alone titles.`,
         images: [...productImages[7].pandemicImages],
         latestArrival: false,
-        totalSelled: 583,
+        totalSold: 583,
         highlight: true,
     },
     {
@@ -121,7 +121,7 @@ export const products = [
         description: `An epic science-fiction game of expansion and conquest, where each of your dice are starships powered by quantum uncertainty. An elegant balance of quick play and deep strategy.`,
         images: [...productImages[8].quantumImages],
         latestArrival: false,
-        totalSelled: 126,
+        totalSold: 126,
         highlight: false,
     },
     {
@@ -134,7 +134,7 @@ export const products = [
         Dungeons & Dragons is a cooperative storytelling game that harnesses your imagination and invites you to explore a fantastic world of adventure, where heroes battle monsters, find treasures, and overcome quests. The D&D Essentials Kit is a new introductory product meant to bring D&D to audiences interested in jumping into a fantasy story.`,
         images: [...productImages[9].dAndDImages],
         latestArrival: false,
-        totalSelled: 743,
+        totalSold: 743,
         highlight: true,
     },
     {
@@ -146,7 +146,7 @@ export const products = [
         description: `Inspired by the medieval fortress in southern France of the same name, Carcassonne is a tile-laying game in which players fill in the countryside around the fortified city. Players choose from tiles that depict cities, roads, monasteries, and fields; each new tile placed creates an ever-expanding board on which players can then add their followers.`,
         images: [...productImages[10].carcassoneImages],
         latestArrival: false,
-        totalSelled: 835,
+        totalSold: 835,
         highlight: false,
     },
     {
@@ -159,7 +159,7 @@ export const products = [
         This indispensable volume contains the core rules for players and Game Masters, and is your first step on a heroic new journey!`,
         images: [...productImages[11].pathfinderImages],
         latestArrival: true,
-        totalSelled: 389,
+        totalSold: 389,
         highlight: false,
     },
     {
@@ -171,7 +171,7 @@ export const products = [
         description: `The world of Westeros is wracked with war, intrigue, and strife. The Great Houses muster armies and meet in titanic battles, while their assassins and spies struggle in the shadows. Across the Narrow Sea, the first dragons in years have awoken, while in the barren lands beyond the Wall, a nameless threat is stirring, eager to crush the world with freezing cold and endless night. Westeros is unforgiving of mistakes, and in the end, only one game truly matters: the game of thrones!`,
         images: [...productImages[12].gotImages],
         latestArrival: false,
-        totalSelled: 290,
+        totalSold: 290,
         highlight: false,
     }
 ]

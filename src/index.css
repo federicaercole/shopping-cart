@@ -25,8 +25,7 @@ body {
 #app {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  height: 100vh;
-  max-width: 100vw;
+  min-height: 100vh;
 }
 
 .visually-hidden {
@@ -61,6 +60,7 @@ header>nav {
 header>div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   border-bottom: 4px solid #ea580c;
 }
@@ -84,6 +84,7 @@ a.logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 10;
 }
 
 a.logo:hover svg,
@@ -96,6 +97,7 @@ a.cart {
   text-decoration: none;
   border-radius: 10px;
   border: 2px solid #ffffff;
+  flex-shrink: 0;
 }
 
 .cart {
@@ -166,13 +168,14 @@ button:active svg {
 }
 
 main {
-  padding: 40px;
+  padding: 30px 15px;
+  justify-self: center;
   width: 100%;
 }
 
 h1 {
-  font-size: 4rem;
-  line-height: 4.5rem;
+  font-size: 2rem;
+  line-height: 2rem;
   padding-bottom: 5px;
 }
 
@@ -297,6 +300,11 @@ button[value="minus"] {
   align-items: center;
   margin-top: 30px;
   gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quantity>* {
+  flex-shrink: 1;
 }
 
 button.cart {
@@ -319,13 +327,11 @@ button.cart {
 
 .modal {
   width: 100vw;
-  height: 100vh;
   z-index: 2;
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
+  top: 0;
+  transform: translate(-50%, 0);
 }
 
 .modal>img {
@@ -338,7 +344,8 @@ button.cart {
 
 .modal>div {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px;
 }
 
@@ -349,9 +356,12 @@ h2+div {
 }
 
 .cartProduct {
-  display: grid;
   border-bottom: 3px solid white;
   padding: 15px 0;
+}
+
+.cartProduct>div {
+  flex-wrap: wrap;
 }
 
 .cartProduct h2 {
@@ -368,10 +378,6 @@ h2+div {
   margin-bottom: 25px;
 }
 
-.cartProduct .quantity {
-  justify-self: center;
-}
-
 p+button {
   margin: 0 auto;
   font-size: 1.8rem;
@@ -386,6 +392,11 @@ footer {
   padding: 10px;
   text-align: center;
   font-size: 0.9rem;
+}
+
+footer svg {
+  display: block;
+  margin: 10px auto 0 auto;
 }
 
 a:hover>svg *,
@@ -408,12 +419,16 @@ a:active>svg * {
     height: 100px;
     width: 100px;
   }
+
+  h1 {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
 }
 
 @media screen and (min-width: 1000px) {
   main {
     max-width: 1000px;
-    margin: 0 auto;
   }
 
   .featured {
@@ -431,7 +446,6 @@ a:active>svg * {
   }
 
   .modal>img {
-    max-width: 800px;
-    margin: 0 auto;
+    max-height: 700px;
   }
 }
