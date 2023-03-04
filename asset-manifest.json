@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/shopping-cart/static/css/main.900327d2.css",
-    "main.js": "/shopping-cart/static/js/main.a3e6a9fc.js",
+    "main.css": "/shopping-cart/static/css/main.85339a10.css",
+    "main.js": "/shopping-cart/static/js/main.f6777d3f.js",
     "static/media/scythe-board.jpg": "/shopping-cart/static/media/scythe-board.e5153f3135b991e3a5ee.jpg",
     "static/media/carcassone-components.jpg": "/shopping-cart/static/media/carcassone-components.64ea0ed77584812f9702.jpg",
     "static/media/wingspan-board.webp": "/shopping-cart/static/media/wingspan-board.93af3e5c10dffd85f82f.webp",
@@ -30,11 +30,11 @@
     "static/media/pandemic-gamebox.webp": "/shopping-cart/static/media/pandemic-gamebox.8884d7b2744145c0de11.webp",
     "static/media/quantum-gamebox.webp": "/shopping-cart/static/media/quantum-gamebox.54a702f2e152f6beef94.webp",
     "index.html": "/shopping-cart/index.html",
-    "main.900327d2.css.map": "/shopping-cart/static/css/main.900327d2.css.map",
-    "main.a3e6a9fc.js.map": "/shopping-cart/static/js/main.a3e6a9fc.js.map"
+    "main.85339a10.css.map": "/shopping-cart/static/css/main.85339a10.css.map",
+    "main.f6777d3f.js.map": "/shopping-cart/static/js/main.f6777d3f.js.map"
   },
   "entrypoints": [
-    "static/css/main.900327d2.css",
-    "static/js/main.a3e6a9fc.js"
+    "static/css/main.85339a10.css",
+    "static/js/main.f6777d3f.js"
   ]
 }
