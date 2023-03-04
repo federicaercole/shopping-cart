@@ -76,11 +76,11 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, message,
                     <div className="quantity">
                         <label htmlFor="quantity">Quantity:</label>
                         <input type="number" id="quantity" defaultValue="1" min="1" max={state.quantity} step="1" onChange={(e) => checkInput(e)} required />
-                        <button type="button" value="plus" onClick={(e) => changeQuantity(e, state.quantity, "#quantity")}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+                        <button type="button" value="plus" onClick={(e) => { changeQuantity(e, state.quantity, "#quantity"); checkInput(e) }}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
 
                             <path d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z"></path>
                         </svg><span className="visually-hidden">Add 1 to quantity</span></button>
-                        <button type="button" value="minus" onClick={(e) => changeQuantity(e, state.quantity, "#quantity")}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+                        <button type="button" value="minus" onClick={(e) => { changeQuantity(e, state.quantity, "#quantity"); checkInput(e) }}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <path d="M0 13v6c0 0.552 0.448 1 1 1h30c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1h-30c-0.552 0-1 0.448-1 1z"></path>
                         </svg><span className="visually-hidden">Remove 1 to quantity</span></button>
                     </div>

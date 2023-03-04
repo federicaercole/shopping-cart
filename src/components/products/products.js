@@ -158,7 +158,7 @@ export const products = [
         description: `This comprehensive 640-page guide to the Pathfinder roleplaying game provides everything you need to set out into a world of limitless fantasy adventure! Choose from ancestries like elf, human, and goblin and classes like alchemist, fighter, and sorcerer to create a hero of your own design, destined to become a legend! The new Pathfinder rules are easier to learn and faster to play, and they offer deeper customization than ever before!\n
         This indispensable volume contains the core rules for players and Game Masters, and is your first step on a heroic new journey!`,
         images: [...productImages[11].pathfinderImages],
-        latestArrival: false,
+        latestArrival: true,
         totalSelled: 389,
         highlight: false,
     },

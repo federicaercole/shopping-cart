@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity }) {
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
     const totalPrice = cart.map((item, index) => cartQuantity[index] * item.price).reduce((prev, total) => prev + total, 0);
-    const shippingFee = totalPrice > 60 ? 0 : 8;
+    const shippingFee = totalPrice >= 60 ? 0 : 8;
 
     function handleChange(e, id) {
         if (!e.target.checkValidity() || e.target.value === "") {
@@ -63,7 +63,7 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity }) 
                     <button type="button">Checkout</button>
                 </>
             }
-        </main>
+        </main >
     )
 }
 

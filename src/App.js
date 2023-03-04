@@ -4,8 +4,8 @@ import Footer from "./components/Footer";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import FilteredPage from "./components/FilteredPage";
-import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { products } from "./components/products/products";
 
 
@@ -13,6 +13,12 @@ function App() {
   const [cart, setCart] = useState([]);
   const [cartQuantity, setCartQuantity] = useState([]);
   const [message, setMessage] = useState("");
+  let location = useLocation();
+
+  useEffect(() => {
+    return (setMessage(""))
+
+  }, [location])
 
   function changeQuantity(e, articleQuantity, id) {
     const quantityInput = document.querySelector(id);
@@ -44,9 +50,11 @@ function App() {
       <Header cartQuantity={cartQuantity} />
       <Routes>
         <Route path="/" element={<Page />} />
-        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} message={message} changeQuantity={changeQuantity} checkInput={checkInput} />} />
-        <Route path="/:id" element={<ProductDetails cart={cart} cartQuantity={cartQuantity} setCart={setCart} setCartQuantity={setCartQuantity} message={message} changeQuantity={changeQuantity} checkInput={checkInput} />} />
-        <Route path="/board-games" element={<FilteredPage products={products.filter((item) => item.category === "board-game")} />} />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} changeQuantity={changeQuantity} checkInput={checkInput} />} />
+        <Route path="/:id" element={<ProductDetails cart={cart} cartQuantity={cartQuantity} setCart={setCart} setCartQuantity={setCartQuantity} message={message} checkInput={checkInput} changeQuantity={changeQuantity} />} />
+        <Route path="/board-games" element={<FilteredPage products={products.filter((item) => item.category === "board-game")} title="All Board Games" />} />
+        <Route path="/card-games" element={<FilteredPage products={products.filter((item) => item.category === "card-game")} title="All Card Games" />} />
+        <Route path="/rpg" element={<FilteredPage products={products.filter((item) => item.category === "rpg")} title="All RolePlaying Games" />} />
       </Routes>
       <Footer />
     </>
