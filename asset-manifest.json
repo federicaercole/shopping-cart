@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/shopping-cart/static/css/main.900327d2.css",
+    "main.js": "/shopping-cart/static/js/main.4a8d69b6.js",
+    "static/media/scythe-board.jpg": "/shopping-cart/static/media/scythe-board.e5153f3135b991e3a5ee.jpg",
+    "static/media/carcassone-components.jpg": "/shopping-cart/static/media/carcassone-components.64ea0ed77584812f9702.jpg",
+    "static/media/wingspan-board.webp": "/shopping-cart/static/media/wingspan-board.93af3e5c10dffd85f82f.webp",
+    "static/media/splendor-board.webp": "/shopping-cart/static/media/splendor-board.90ff97b06c9d79cdc0e0.webp",
+    "static/media/root-board.webp": "/shopping-cart/static/media/root-board.970026eba54a281325d7.webp",
+    "static/media/splendor-gamebox.webp": "/shopping-cart/static/media/splendor-gamebox.79fd97a61925a90f8060.webp",
+    "static/media/quantum-components.jpg": "/shopping-cart/static/media/quantum-components.79baf75fc3e9aeed8ba0.jpg",
+    "static/media/scythe-components.webp": "/shopping-cart/static/media/scythe-components.6cfba26020e2cb9552bd.webp",
+    "static/media/scythe-gamebox.webp": "/shopping-cart/static/media/scythe-gamebox.e21a62df73a927a0c672.webp",
+    "static/media/root-components.webp": "/shopping-cart/static/media/root-components.94c64cb22bdfbc3b0f4d.webp",
+    "static/media/root-gamebox.webp": "/shopping-cart/static/media/root-gamebox.4c157d0b60fb1a2b806d.webp",
+    "static/media/ttr2.webp": "/shopping-cart/static/media/ttr2.e68b42480f9fe1474fb2.webp",
+    "static/media/got-gamebox.webp": "/shopping-cart/static/media/got-gamebox.0ddf3906988bf545e0c3.webp",
+    "static/media/wingspan-gamebox.webp": "/shopping-cart/static/media/wingspan-gamebox.bd1462fb89d817123c2b.webp",
+    "static/media/pathfinder-cover.webp": "/shopping-cart/static/media/pathfinder-cover.b25ce91a531d73f25af7.webp",
+    "static/media/got-components.jpg": "/shopping-cart/static/media/got-components.9f237845c130938ee15d.jpg",
+    "static/media/carcassone-gamebox.webp": "/shopping-cart/static/media/carcassone-gamebox.4957ffd075e1ae23ef8d.webp",
+    "static/media/6nimmt.jpg": "/shopping-cart/static/media/6nimmt.84c63c25166b6ead0795.jpg",
+    "static/media/marco-polo-board.webp": "/shopping-cart/static/media/marco-polo-board.1a0b5fbc133e3931b51b.webp",
+    "static/media/d&d-cover.webp": "/shopping-cart/static/media/d&d-cover.cad5dd19737b097f988b.webp",
+    "static/media/marco-polo-gamebox.webp": "/shopping-cart/static/media/marco-polo-gamebox.be39b91c884d185ba369.webp",
+    "static/media/ttr.webp": "/shopping-cart/static/media/ttr.16c19a2b5b03e52cd76c.webp",
+    "static/media/d&d-components.webp": "/shopping-cart/static/media/d&d-components.5c4ffe9571f543e07780.webp",
+    "static/media/marco-polo-components.webp": "/shopping-cart/static/media/marco-polo-components.3499549e5ace8c6884b7.webp",
+    "static/media/quantum-board.webp": "/shopping-cart/static/media/quantum-board.331567f1ca58ce39aeae.webp",
+    "static/media/pandemic-gamebox.webp": "/shopping-cart/static/media/pandemic-gamebox.8884d7b2744145c0de11.webp",
+    "static/media/quantum-gamebox.webp": "/shopping-cart/static/media/quantum-gamebox.54a702f2e152f6beef94.webp",
+    "index.html": "/shopping-cart/index.html",
+    "main.900327d2.css.map": "/shopping-cart/static/css/main.900327d2.css.map",
+    "main.4a8d69b6.js.map": "/shopping-cart/static/js/main.4a8d69b6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.900327d2.css",
+    "static/js/main.4a8d69b6.js"
+  ]
+}
