@@ -125,7 +125,7 @@ export const products = [
         highlight: false,
     },
     {
-        name: "D&D Essential Kit",
+        name: "D&D Essentials Kit",
         category: "rpg",
         price: 24,
         quantity: 26,
@@ -150,7 +150,7 @@ export const products = [
         highlight: false,
     },
     {
-        name: "Pathfinder Core Rolebook",
+        name: "Pathfinder Core Rulebook",
         category: "rpg",
         price: 25,
         quantity: 32,

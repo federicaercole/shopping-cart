@@ -1,25 +1,11 @@
 import { Link } from "react-router-dom";
+import Button from "./Button";
+import QuantityInput from "./QuantityInput";
 
-function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity }) {
+function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, handleQuantityInput }) {
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
     const totalPrice = cart.map((item, index) => cartQuantity[index] * item.price).reduce((prev, total) => prev + total, 0);
     const shippingFee = totalPrice >= 60 ? 0 : 8;
-
-    function handleChange(e, id) {
-        if (!e.target.checkValidity() || e.target.value === "") {
-            e.preventDefault();
-        } else {
-            const index = cart.findIndex((item) => item.id === id);
-            const newQuantity = cartQuantity.map((item, i) => {
-                if (i === index) {
-                    return Number(e.target.value);
-                } else {
-                    return item;
-                }
-            });
-            setCartQuantity(newQuantity);
-        }
-    }
 
     function deleteItem(id) {
         const index = cart.findIndex((item) => item.id === id);
@@ -42,16 +28,10 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity }) 
                                 <img src={item.images[0]} alt="" />
                                 <p className="price">{item.price}€</p>
                                 <div className="quantity">
-                                    <label htmlFor={item.id}>Quantity:</label>
-                                    <input type="number" id={item.id} defaultValue={cartQuantity[index]} min="1" max={item.quantity} step="1" onChange={(e) => { e.target.reportValidity(); handleChange(e, item.id) }} required />
-                                    <button type="button" value="plus" onClick={(e) => changeQuantity(e, item.quantity, `#${item.id}`)}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-
-                                        <path d="M31 12h-11v-11c0-0.552-0.448-1-1-1h-6c-0.552 0-1 0.448-1 1v11h-11c-0.552 0-1 0.448-1 1v6c0 0.552 0.448 1 1 1h11v11c0 0.552 0.448 1 1 1h6c0.552 0 1-0.448 1-1v-11h11c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1z"></path>
-                                    </svg><span className="visually-hidden">Add 1 to quantity</span></button>
-                                    <button type="button" value="minus" onClick={(e) => changeQuantity(e, item.quantity, `#${item.id}`)}><svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
-                                        <path d="M0 13v6c0 0.552 0.448 1 1 1h30c0.552 0 1-0.448 1-1v-6c0-0.552-0.448-1-1-1h-30c-0.552 0-1 0.448-1 1z"></path>
-                                    </svg><span className="visually-hidden">Remove 1 to quantity</span></button>
-                                    <button type="button" onClick={() => deleteItem(item.id)}>Delete</button>
+                                    <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}
+                                        handleInput={(e) => { e.target.reportValidity(); handleQuantityInput(e, `${item.id}`, item) }}
+                                        handleButtons={(e) => { changeQuantity(e, item.quantity, `${item.id}`); handleQuantityInput(e, `${item.id}`, item) }} />
+                                    <Button handle={() => deleteItem(item.id)} text="Delete" />
                                 </div>
                             </div>
                         </article>)}

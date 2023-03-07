@@ -4,24 +4,39 @@ import Footer from "./components/Footer";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import FilteredPage from "./components/FilteredPage";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import { products } from "./components/products/products";
 
 
 function App() {
   const [cart, setCart] = useState([]);
   const [cartQuantity, setCartQuantity] = useState([]);
-  const [message, setMessage] = useState("");
-  let location = useLocation();
 
-  useEffect(() => {
-    return (setMessage(""))
+  function handleQuantityInput(e, input, product) {
+    const quantityInput = document.querySelector(`#${input}`);
+    if (!quantityInput.checkValidity()) {
+      e.preventDefault();
+    } else {
+      const index = cart.findIndex((item) => item.id === product.id);
+      if (index < 0) {
+        setCart(cart.concat(product));
+        setCartQuantity(cartQuantity.concat(Number(quantityInput.value)));
+      } else if (cartQuantity[index]) {
+        const newQuantity = cartQuantity.map((item, i) => {
+          if (i === index) {
+            return Number(quantityInput.value);
+          } else {
+            return item;
+          }
+        });
+        setCartQuantity(newQuantity);
+      }
+    }
+  }
 
-  }, [location])
-
-  function changeQuantity(e, articleQuantity, id) {
-    const quantityInput = document.querySelector(id);
+  function changeQuantityButtons(e, articleQuantity, input) {
+    const quantityInput = document.querySelector(`#${input}`);
     if (e.target.value === "plus") {
       if (quantityInput.value < articleQuantity) {
         quantityInput.value = Number(quantityInput.value) + 1;
@@ -33,25 +48,14 @@ function App() {
     }
   }
 
-  function checkInput(e) {
-    if (e.target.validity.rangeUnderflow) {
-      setMessage("You must have at least a quantity of 1");
-    } else if (e.target.validity.valueMissing || e.target.validity.patternMismatch || e.target.validity.stepMismatch) {
-      setMessage("You must write a valid number");
-    } else if (e.target.validity.rangeOverflow) {
-      setMessage("Please write a quantity equal or less than");
-    } else if (e.target.validity) {
-      setMessage("");
-    }
-  }
-
   return (
     <>
       <Header cartQuantity={cartQuantity} />
       <Routes>
         <Route path="/" element={<Page />} />
-        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} changeQuantity={changeQuantity} checkInput={checkInput} />} />
-        <Route path="/:id" element={<ProductDetails cart={cart} cartQuantity={cartQuantity} setCart={setCart} setCartQuantity={setCartQuantity} message={message} checkInput={checkInput} changeQuantity={changeQuantity} />} />
+        <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} handleQuantityInput={handleQuantityInput} changeQuantity={changeQuantityButtons} />} />
+        <Route path="/:id"
+          element={<ProductDetails cart={cart} setCart={setCart} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity} handleQuantityInput={handleQuantityInput} changeQuantity={changeQuantityButtons} />} />
         <Route path="/board-games" element={<FilteredPage products={products.filter((item) => item.category === "board-game")} title="All Board Games" />} />
         <Route path="/card-games" element={<FilteredPage products={products.filter((item) => item.category === "card-game")} title="All Card Games" />} />
         <Route path="/rpg" element={<FilteredPage products={products.filter((item) => item.category === "rpg")} title="All RolePlaying Games" />} />

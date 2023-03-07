@@ -46,7 +46,6 @@ a:visited {
   color: white;
 }
 
-a:hover,
 a:active {
   color: #ea580c;
 }
@@ -87,8 +86,10 @@ a.logo {
   flex-shrink: 10;
 }
 
-a.logo:hover svg,
-a.logo:active svg {
+a.logo:active svg,
+a:active>svg *,
+a.cart:active svg,
+button:active svg {
   fill: #ea580c;
 }
 
@@ -98,6 +99,9 @@ a.cart {
   border-radius: 10px;
   border: 2px solid #ffffff;
   flex-shrink: 0;
+  transition: transform 200ms ease-out;
+  transition-delay: 250ms;
+  will-change: transform;
 }
 
 .cart {
@@ -109,19 +113,11 @@ a.cart svg {
   margin-right: 10px;
 }
 
-a.cart:hover,
 a.cart:active,
-button:hover,
 button:active {
   border: 2px solid #ea580c;
   color: #ea580c;
-}
-
-a.cart:hover svg,
-a.cart:active svg,
-button:hover svg,
-button:active svg {
-  fill: #ea580c;
+  transform: scale(1.1);
 }
 
 .category {
@@ -142,14 +138,15 @@ button:active svg {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: transform 200ms ease-out;
+  transition-delay: 250ms;
+  will-change: transform;
 }
 
-.category>article:hover,
 .category>article:active {
   background-color: #ea580c;
 }
 
-.category>article a:hover,
 .category>article a:active {
   color: #101011;
 }
@@ -257,10 +254,6 @@ input {
   padding: 10px;
 }
 
-#app input {
-  max-height: 42px;
-}
-
 button {
   cursor: pointer;
   color: white;
@@ -270,10 +263,12 @@ button {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  will-change: transform;
+  transition: transform 200ms ease-out;
+  transition-delay: 250ms;
 }
 
-button:disabled,
-button:disabled:hover {
+button:disabled {
   cursor: auto;
   color: #3c3c40;
   border-color: #3c3c40;
@@ -399,11 +394,6 @@ footer svg {
   margin: 10px auto 0 auto;
 }
 
-a:hover>svg *,
-a:active>svg * {
-  fill: #ea580c;
-}
-
 @media screen and (min-width: 800px) {
   .featured {
     width: 320px;
@@ -447,5 +437,52 @@ a:active>svg * {
 
   .modal>img {
     max-height: 700px;
+  }
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: #ea580c;
+  }
+
+  a.logo:hover svg,
+  a:hover>svg *,
+  a.cart:hover svg,
+  button:hover svg {
+    fill: #ea580c;
+  }
+
+  a.cart:hover,
+  button:hover {
+    border: 2px solid #ea580c;
+    color: #ea580c;
+    transform: scale(1.1);
+  }
+
+  .category>article:hover {
+    background-color: #ea580c;
+    transform: scale(1.1);
+  }
+
+  .category>article a:hover {
+    color: #101011;
+  }
+
+  button:disabled:hover {
+    cursor: auto;
+    color: #3c3c40;
+    border-color: #3c3c40;
+  }
+
+  button:disabled:hover svg {
+    fill: #3c3c40;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  a.cart,
+  button {
+    transition: none;
   }
 }
