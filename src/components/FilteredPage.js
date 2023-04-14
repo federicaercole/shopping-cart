@@ -6,7 +6,7 @@ function filteredPage({ products, title }) {
         <main>
             <h1>{title}</h1>
             <div className="category">
-                {products.map((item) => <ProductCard key={item.id} image={item.images[0]} title={item.name} product={item} link={item.id} />)}
+                {products.map((item) => <ProductCard key={item.id} image={item.images[0]} title={item.name} price={item.price} product={item} link={item.id} />)}
             </div>
         </main>)
 
