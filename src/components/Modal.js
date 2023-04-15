@@ -37,16 +37,17 @@ function Modal({ selectedImage, zoom, close, images, setSelectedImage }) {
     if (zoom) {
         return (
             <>
-                <div className="overlay"></div>
                 <div className="modal">
                     <div><p>Image {findIndexOfImage() + 1} of {images.length}</p>
-                        <button type="button" onClick={close}>{closeModal}<span className="visually-hidden">Close dialog</span></button>
+                        <button className="close" type="button" onClick={close}>{closeModal}<span className="visually-hidden">Close dialog</span></button>
                     </div>
-                    <img src={selectedImage} alt="" />
                     <div>
-                        <button type="button" onClick={prevImage}>
+                        <button className="arrow" type="button" onClick={prevImage}>
                             {prevIcon}<span className="visually-hidden">Go to previous image</span></button>
-                        <button type="button" onClick={nextImage}>{nextIcon}<span className="visually-hidden">Go to next image</span></button>
+                        <button className="arrow" type="button" onClick={nextImage}>{nextIcon}<span className="visually-hidden">Go to next image</span></button>
+                    </div>
+                    <div>
+                        <img src={selectedImage} alt="" />
                     </div>
                 </div>
             </>)

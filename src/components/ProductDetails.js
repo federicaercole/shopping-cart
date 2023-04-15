@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { infoIcon } from './icons';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
 import QuantityInput from './QuantityInput';
@@ -56,8 +57,10 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
     return (
         <>
             <main className="single-product">
-                <div>
-                    <img className="featured" src={selectedImage} alt="" onClick={zoomImage} />
+                <div className="img-container">
+                    <div>
+                        <img className="featured" src={selectedImage} alt="" onClick={zoomImage} />
+                    </div>
                     <div className="thumbnails">
                         {state.images.map((image, index) => {
                             return <img key={index} src={image} alt="" onClick={changeFeaturedImage} />
@@ -68,11 +71,13 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                 <div className="product-details">
                     <h1>{state.name}</h1>
                     <p>{state.description}</p>
-                    <p className="price">Price: {state.price}€</p>
-                    {state.quantity === 0 && <p className="warning">Not Available</p>}
-                    {state.quantity <= 10 && state.quantity !== 1 && state.quantity !== 0 && <p className="warning">Only {state.quantity} copies available!</p>}
-                    {state.quantity === 1 && <p className="warning">Only one copy available!</p>}
-                    <div className="quantity">
+                </div>
+                <div className="quantity">
+                    <p className="price">{state.price}<span>€</span></p>
+                    {state.quantity === 0 && <p className="warning">{infoIcon}Not Available</p>}
+                    {state.quantity <= 10 && state.quantity !== 1 && state.quantity !== 0 && <p className="warning">{infoIcon}Only {state.quantity} copies available!</p>}
+                    {state.quantity === 1 && <p className="warning">{infoIcon}Only one copy available!</p>}
+                    <div>
                         <QuantityInput defaultValue={1} product={state} input="quantity" cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}
                             checkInput={checkInput} handleInput={(e) => checkInput(e)}
                             handleButtons={(e) => { changeQuantity(e, state.quantity, "quantity"); checkInput(e) }} />

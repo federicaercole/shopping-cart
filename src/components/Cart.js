@@ -17,9 +17,9 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, ha
 
     return (
         <main>
-            <h1>Cart</h1>
+            {totalObj !== 0 && <h1>Cart</h1>}
             {shippingFee !== 0 && totalObj !== 0 && <p>You are {60 - totalPrice}€ away for free shipping!</p>}
-            {totalObj === 0 ? <p>Your cart is empty. <Link to="/">Start shopping!</Link></p> :
+            {totalObj === 0 ? <><h1 className="empty">Your cart is empty</h1> <Link to="/">Start shopping!</Link></> :
                 <>
                     {cart.map((item, index) =>
                         <article className="cartProduct" key={item.id}>
