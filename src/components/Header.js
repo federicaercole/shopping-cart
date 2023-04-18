@@ -28,15 +28,9 @@ function Header({ cartQuantity }) {
             </div>
             <nav>
                 <ul>
-                    <Link to="/board-games">
-                        <li>Board Games</li>
-                    </Link>
-                    <Link to="/card-games">
-                        <li>Card Games</li>
-                    </Link>
-                    <Link to="/rpg">
-                        <li>Roleplaying Games</li>
-                    </Link>
+                    <li><Link to="/board-games">Board Games</Link></li>
+                    <li><Link to="/card-games">Card Games</Link></li>
+                    <li><Link to="/rpg">Roleplaying Games</Link></li>
                 </ul>
             </nav>
         </header>)
