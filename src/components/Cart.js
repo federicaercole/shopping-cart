@@ -27,7 +27,7 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, ha
                                 <article className="cartProduct" key={item.id}>
                                     <h2>{item.name}</h2>
                                     <div>
-                                        <img src={item.images[0]} alt="" />
+                                        <img src={item.images[0]} alt={`Cover of ${item.name}`} />
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
                                             <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}

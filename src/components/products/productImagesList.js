@@ -26,6 +26,8 @@ import pathfinder1 from "./images/pathfinder-cover.webp"
 import got1 from "./images/got-gamebox.webp"
 import got2 from "./images/got-components.jpg"
 
+export const altImages = ["Cover of the game", "Gameboard and components", "Details of the components"]
+
 export const productImages = [
     {
         rootImages: [root1, root2, root3]

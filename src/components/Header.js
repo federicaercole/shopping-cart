@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { logo, cartIcon, userIcon, searchIcon } from "./icons";
+import { logo, cartIcon, userIcon } from "./icons";
+import SearchBar from "./SearchBar";
 
 function Header({ cartQuantity }) {
     const [width, setWidth] = useState(window.innerWidth);
+    const fontSize = 16;
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
 
+
     window.addEventListener("resize", () => {
-        setWidth(window.innerWidth)
+        setWidth(window.innerWidth / fontSize); //value in rem
     });
+
+    const size800pxInRem = (800 / fontSize);
+    const size950pxInRem = (950 / fontSize);
 
     return (
         <header>
@@ -16,14 +22,11 @@ function Header({ cartQuantity }) {
                 <Link to="/" className="logo">
                     {logo} Good Board Games
                 </Link>
-                <Link to="/" className="login">{userIcon} <span className={width < 800 ? "visually-hidden" : ""}>Login</span></Link>
+                {width >= size950pxInRem && <SearchBar />}
+                <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
                 <Link to="/cart" className="cart">
-                    {cartIcon} <span className={width < 800 ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects">{totalObj}</span>}</Link>
-                <form method="get" action="" role="search">
-                    <label htmlFor="search" className="visually-hidden">Search game</label>
-                    <input type="text" id="search" />
-                    <button type="submit">{searchIcon}<span className="visually-hidden">Search</span></button>
-                </form>
+                    {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects">{totalObj}</span>}</Link>
+                {width < size950pxInRem && <SearchBar />}
 
             </div>
             <nav>

@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { infoIcon } from './icons';
+import { altImages } from './products/productImagesList';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
 import QuantityInput from './QuantityInput';
@@ -8,14 +9,26 @@ import Button from './Button';
 
 function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQuantityInput, changeQuantity }) {
     let { state } = useLocation();
-    const [selectedImage, setSelectedImage] = useState(state.images[0]);
     const [zoom, setZoom] = useState(false);
     const [message, setMessage] = useState("");
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    let currentImage = state.images[currentImageIndex];
+    let altCurrentImage = altImages[currentImageIndex];
 
     useEffect(() => {
         return (setMessage(""))
 
     }, [])
+
+    useEffect(() => {
+        if (zoom) {
+            window.scrollTo(0, 0);
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [zoom])
 
     function checkInput(e) {
         if (e.target.validity.rangeUnderflow) {
@@ -29,10 +42,16 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
         }
     }
 
+    function findIndexOfImage(target) {
+        const imagesArray = [...state.images];
+        return imagesArray.findIndex((image) => target === image);
+    }
+
     function changeFeaturedImage(e) {
         const featured = document.querySelector(".featured");
         const imgSrc = e.target.getAttribute("src");
-        setSelectedImage(imgSrc);
+        const index = findIndexOfImage(imgSrc);
+        setCurrentImageIndex(index);
         featured.setAttribute("src", imgSrc);
     }
 
@@ -59,11 +78,23 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
             <main className="single-product">
                 <div className="img-container">
                     <div>
-                        <img className="featured" src={selectedImage} alt="" onClick={zoomImage} />
+                        <img className="featured" src={currentImage} alt={altCurrentImage} tabIndex={0} onClick={zoomImage}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    return zoomImage();
+                                }
+                            }}
+                        />
                     </div>
                     <div className="thumbnails">
                         {state.images.map((image, index) => {
-                            return <img key={index} src={image} alt="" onClick={changeFeaturedImage} />
+                            return <img key={index} src={image} alt={altImages[index]} tabIndex={0} onClick={changeFeaturedImage}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        return changeFeaturedImage(e);
+                                    }
+                                }} />
                         }
                         )}
                     </div>
@@ -74,9 +105,9 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                 </div>
                 <div className="quantity">
                     <p className="price">{state.price}<span>€</span></p>
-                    {state.quantity === 0 && <p className="warning">{infoIcon}Not Available</p>}
-                    {state.quantity <= 10 && state.quantity !== 1 && state.quantity !== 0 && <p className="warning">{infoIcon}Only {state.quantity} copies available!</p>}
-                    {state.quantity === 1 && <p className="warning">{infoIcon}Only one copy available!</p>}
+                    {state.quantity === 0 && <p className="warning">{infoIcon} Not Available</p>}
+                    {state.quantity <= 10 && state.quantity !== 1 && state.quantity !== 0 && <p className="warning">{infoIcon} Only {state.quantity} copies available!</p>}
+                    {state.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
                     <div>
                         <QuantityInput defaultValue={1} product={state} input="quantity" cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}
                             checkInput={checkInput} handleInput={(e) => checkInput(e)}
@@ -87,7 +118,8 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                         setCartQuantity={setCartQuantity} cart={cart} setCart={setCart} />
                 </div>
             </main>
-            <Modal selectedImage={selectedImage} zoom={zoom} close={closeZoom} images={state.images} setSelectedImage={setSelectedImage} />
+            {zoom && <Modal close={closeZoom} images={state.images} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
+                setCurrentImageIndex={setCurrentImageIndex} />}
         </>)
 
 }
