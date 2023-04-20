@@ -43,7 +43,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
     }
 
     function findIndexOfImage(target) {
-        const imagesArray = [...state.images];
+        const imagesArray = [...state.imagesSmall];
         return imagesArray.findIndex((image) => target === image);
     }
 
@@ -52,7 +52,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
         const imgSrc = e.target.getAttribute("src");
         const index = findIndexOfImage(imgSrc);
         setCurrentImageIndex(index);
-        featured.setAttribute("src", imgSrc);
+        featured.setAttribute("src", state.images[currentImageIndex]);
     }
 
     function zoomImage() {
@@ -78,7 +78,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
             <main className="single-product">
                 <div className="img-container">
                     <div>
-                        <img className="featured" src={currentImage} alt={altCurrentImage} tabIndex={0} onClick={zoomImage}
+                        <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom`} tabIndex={0} onClick={zoomImage}
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
@@ -88,7 +88,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                         />
                     </div>
                     <div className="thumbnails">
-                        {state.images.map((image, index) => {
+                        {state.imagesSmall.map((image, index) => {
                             return <img key={index} src={image} alt={altImages[index]} tabIndex={0} onClick={changeFeaturedImage}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
