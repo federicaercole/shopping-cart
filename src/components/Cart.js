@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { infoIcon } from "./icons";
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
-function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, handleQuantityInput }) {
+function Cart() {
+    const { cart, setCart, cartQuantity, setCartQuantity, changeQuantityButtons, handleQuantityInput } = useContext(CartContext);
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
     const totalPrice = cart.map((item, index) => cartQuantity[index] * item.price).reduce((prev, total) => prev + total, 0);
     const shippingFee = totalPrice >= 60 ? 0 : 8;
@@ -27,13 +30,13 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, ha
                                 <article className="cartProduct" key={item.id}>
                                     <h2>{item.name}</h2>
                                     <div>
-                                        <img src={item.images[0]} alt={`Cover of ${item.name}`} />
+                                        <img src={item.imagesSmall[0]} alt={`Cover of ${item.name}`} />
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
-                                            <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item} cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}
+                                            <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item}
                                                 handleInput={(e) => { e.target.reportValidity(); handleQuantityInput(e, `${item.id}`, item) }}
-                                                handleButtons={(e) => { changeQuantity(e, item.quantity, `${item.id}`); handleQuantityInput(e, `${item.id}`, item) }} />
-                                            <Button handle={() => deleteItem(item.id)} text="Delete" />
+                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.id}`); handleQuantityInput(e, `${item.id}`, item) }} />
+                                            <Button handle={() => deleteItem(item.id)} text="Remove" productName={item.name} />
                                         </div>
                                     </div>
                                 </article>)}
@@ -43,7 +46,7 @@ function Cart({ cart, setCart, cartQuantity, setCartQuantity, changeQuantity, ha
                             <p>Number of articles: {totalObj}</p>
                             <p>{shippingFee === 0 ? "Free shipping" : "Shipping fee: " + shippingFee + "€"}</p>
                             <p className="price">Total: {totalPrice + shippingFee}<span>€</span></p>
-                            <button type="button" >Checkout</button>
+                            <button type="button">Checkout</button>
                         </div>
                     </div>
                 </>

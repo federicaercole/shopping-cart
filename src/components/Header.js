@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { logo, cartIcon, userIcon } from "./icons";
 import SearchBar from "./SearchBar";
+import { CartContext } from "./CartContext";
 
-function Header({ cartQuantity }) {
-    const [width, setWidth] = useState(window.innerWidth);
+
+function Header() {
+    const { cartQuantity } = useContext(CartContext);
     const fontSize = 16;
+    const [width, setWidth] = useState(window.innerWidth / fontSize); //value in rem
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
-
 
     window.addEventListener("resize", () => {
         setWidth(window.innerWidth / fontSize); //value in rem
@@ -33,7 +35,7 @@ function Header({ cartQuantity }) {
                 <ul>
                     <li><Link to="/board-games">Board Games</Link></li>
                     <li><Link to="/card-games">Card Games</Link></li>
-                    <li><Link to="/rpg">Roleplaying Games</Link></li>
+                    <li><Link to="/rpgs">Roleplaying Games</Link></li>
                 </ul>
             </nav>
         </header>)

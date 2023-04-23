@@ -203,6 +203,47 @@ form button svg {
   fill: var(--accent-950);
 }
 
+/*Breadcrumbs*/
+
+.breadcrumb {
+  width: 100%;
+  font-size: var(--fs-50);
+}
+
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  gap: 8px;
+}
+
+.breadcrumbs-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.breadcrumbs-container nav {
+  width: auto;
+}
+
+ol li a {
+  text-decoration: underline;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+li svg {
+  fill: var(--primary-400);
+}
+
 /*Homepage categories*/
 
 .category.scroll {
@@ -679,7 +720,6 @@ button.cart svg {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 0 0 16px 0;
   gap: 8px;
 }
 

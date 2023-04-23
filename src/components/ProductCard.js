@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
-function ProductCard({ image, title, link, product, price }) {
+function ProductCard({ product }) {
 
     return (
         <article>
-            <img src={image} alt={`Cover of ${title}`} />
-            <Link to={`/${link}`} state={product} >
-                <h3>{title}</h3>
+            <img src={product.imagesSmall[0]} alt={`Cover of ${product.name}`} />
+            <Link to={`/${product.category + "s"}/${product.id}`} >
+                <h3>{product.name}</h3>
             </Link>
-            <p>{price}<span>€</span></p>
+            <p>{product.price}<span>€</span></p>
         </article>)
 }
 

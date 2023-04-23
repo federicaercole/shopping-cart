@@ -1,25 +1,23 @@
-import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
 import { infoIcon } from './icons';
 import { altImages } from './products/productImagesList';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
 import QuantityInput from './QuantityInput';
 import Button from './Button';
+import { CartContext } from './CartContext';
+import Breadcrumbs from './Breadcrumbs';
 
-function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQuantityInput, changeQuantity }) {
-    let { state } = useLocation();
+function ProductDetails() {
+    const { handleQuantityInput, changeQuantityButtons } = useContext(CartContext);
+    const { product } = useLoaderData();
     const [zoom, setZoom] = useState(false);
     const [message, setMessage] = useState("");
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    let currentImage = state.images[currentImageIndex];
+    let currentImage = product.images[currentImageIndex];
     let altCurrentImage = altImages[currentImageIndex];
-
-    useEffect(() => {
-        return (setMessage(""))
-
-    }, [])
 
     useEffect(() => {
         if (zoom) {
@@ -43,7 +41,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
     }
 
     function findIndexOfImage(target) {
-        const imagesArray = [...state.imagesSmall];
+        const imagesArray = [...product.imagesSmall];
         return imagesArray.findIndex((image) => target === image);
     }
 
@@ -52,7 +50,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
         const imgSrc = e.target.getAttribute("src");
         const index = findIndexOfImage(imgSrc);
         setCurrentImageIndex(index);
-        featured.setAttribute("src", state.images[currentImageIndex]);
+        featured.setAttribute("src", product.images[currentImageIndex]);
     }
 
     function zoomImage() {
@@ -67,15 +65,16 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
         const input = document.querySelector("#quantity");
         const buttons = [...document.querySelectorAll("button")];
 
-        if (state.quantity === 0) {
+        if (product.quantity === 0) {
             input.disabled = true;
             buttons.forEach(button => button.disabled = true)
         }
-    }, [state.quantity])
+    }, [product.quantity])
 
     return (
         <>
-            <main className="single-product">
+            <main className="single-product" key={product.id}>
+                <Breadcrumbs />
                 <div className="img-container">
                     <div>
                         <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom`} tabIndex={0} onClick={zoomImage}
@@ -88,7 +87,7 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                         />
                     </div>
                     <div className="thumbnails">
-                        {state.imagesSmall.map((image, index) => {
+                        {product.imagesSmall.map((image, index) => {
                             return <img key={index} src={image} alt={altImages[index]} tabIndex={0} onClick={changeFeaturedImage}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
@@ -100,25 +99,24 @@ function ProductDetails({ cart, setCart, cartQuantity, setCartQuantity, handleQu
                     </div>
                 </div>
                 <div className="product-details">
-                    <h1>{state.name}</h1>
-                    <p>{state.description}</p>
+                    <h1>{product.name}</h1>
+                    <p>{product.description}</p>
                 </div>
                 <div className="quantity">
-                    <p className="price">{state.price}<span>€</span></p>
-                    {state.quantity === 0 && <p className="warning">{infoIcon} Not Available</p>}
-                    {state.quantity <= 10 && state.quantity !== 1 && state.quantity !== 0 && <p className="warning">{infoIcon} Only {state.quantity} copies available!</p>}
-                    {state.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
+                    <p className="price">{product.price}<span>€</span></p>
+                    {product.quantity === 0 && <p className="warning">{infoIcon} Not Available</p>}
+                    {product.quantity <= 10 && product.quantity !== 1 && product.quantity !== 0 && <p className="warning">{infoIcon} Only {product.quantity} copies available!</p>}
+                    {product.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
                     <div>
-                        <QuantityInput defaultValue={1} product={state} input="quantity" cartQuantity={cartQuantity} setCartQuantity={setCartQuantity}
-                            checkInput={checkInput} handleInput={(e) => checkInput(e)}
-                            handleButtons={(e) => { changeQuantity(e, state.quantity, "quantity"); checkInput(e) }} />
+                        <QuantityInput defaultValue={1} product={product} input="quantity"
+                            handleInput={(e) => checkInput(e)}
+                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkInput(e) }} />
                     </div>
-                    <ErrorMessage message={message} quantity={state.quantity} />
-                    <Button handle={(e) => handleQuantityInput(e, "quantity", state)} text="Add to Cart" className="cart" cartQuantity={cartQuantity}
-                        setCartQuantity={setCartQuantity} cart={cart} setCart={setCart} />
+                    <ErrorMessage message={message} quantity={product.quantity} />
+                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />
                 </div>
             </main>
-            {zoom && <Modal close={closeZoom} images={state.images} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
+            {zoom && <Modal close={closeZoom} images={product.images} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
                 setCurrentImageIndex={setCurrentImageIndex} />}
         </>)
 
