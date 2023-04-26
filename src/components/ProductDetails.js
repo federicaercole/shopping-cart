@@ -13,8 +13,8 @@ function ProductDetails() {
     const { handleQuantityInput, changeQuantityButtons } = useContext(CartContext);
     const { product } = useLoaderData();
     const [zoom, setZoom] = useState(false);
-    const [message, setMessage] = useState("");
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [message, setMessage] = useState("");
 
     let currentImage = product.images[currentImageIndex];
     let altCurrentImage = altImages[currentImageIndex];
@@ -28,15 +28,26 @@ function ProductDetails() {
         }
     }, [zoom])
 
-    function checkInput(e) {
-        if (e.target.validity.rangeUnderflow) {
+    function checkInput(target) {
+        const input = document.querySelector(`#${target}`);
+        if (input.validity.rangeUnderflow) {
             setMessage("You must have at least a quantity of 1");
-        } else if (e.target.validity.valueMissing || e.target.validity.patternMismatch || e.target.validity.stepMismatch) {
+            input.setAttribute("aria-invalid", "true");
+        } else if (input.validity.valueMissing || input.validity.patternMismatch || input.validity.stepMismatch) {
             setMessage("You must write a valid number");
-        } else if (e.target.validity.rangeOverflow) {
+            input.setAttribute("aria-invalid", "true");
+        } else if (input.validity.rangeOverflow) {
             setMessage("Please write a quantity equal or less than");
-        } else if (e.target.validity) {
+            input.setAttribute("aria-invalid", "true");
+        }
+        inputIsValid(target);
+    }
+
+    function inputIsValid(target) {
+        const input = document.querySelector(`#${target}`);
+        if (input.validity.valid) {
             setMessage("");
+            input.setAttribute("aria-invalid", "false");
         }
     }
 
@@ -109,10 +120,11 @@ function ProductDetails() {
                     {product.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
                     <div>
                         <QuantityInput defaultValue={1} product={product} input="quantity"
-                            handleInput={(e) => checkInput(e)}
-                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkInput(e) }} />
+                            onBlur={() => checkInput("quantity")}
+                            onChange={() => inputIsValid("quantity")}
+                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkInput("quantity") }} />
                     </div>
-                    <ErrorMessage message={message} quantity={product.quantity} />
+                    <ErrorMessage message={message} id={product.id} quantity={product.quantity} />
                     <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />
                 </div>
             </main>

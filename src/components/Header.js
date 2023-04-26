@@ -4,8 +4,7 @@ import { logo, cartIcon, userIcon } from "./icons";
 import SearchBar from "./SearchBar";
 import { CartContext } from "./CartContext";
 
-
-function Header() {
+function Header({ query, setQuery, setSearchResults }) {
     const { cartQuantity } = useContext(CartContext);
     const fontSize = 16;
     const [width, setWidth] = useState(window.innerWidth / fontSize); //value in rem
@@ -24,7 +23,7 @@ function Header() {
                 <Link to="/" className="logo">
                     {logo} Good Board Games
                 </Link>
-                {width >= size950pxInRem && <SearchBar />}
+                {width >= size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
                 <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
                 <Link to="/cart" className="cart">
                     {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects">{totalObj}</span>}</Link>

@@ -296,13 +296,11 @@ li svg {
 
 .warning {
   margin-top: 16px;
-  font-size: var(--fs-200);
   display: flex;
 }
 
 .price+.warning,
 .checkout .warning {
-  font-size: var(--fs-100);
   font-weight: 600;
 }
 
@@ -310,9 +308,12 @@ li svg {
   margin-bottom: 16px;
 }
 
+.quantity .warning {
+  margin-top: 8px;
+}
+
 .warning svg {
   flex-shrink: 0;
-  align-self: baseline;
   margin-right: 4px;
 }
 
@@ -332,7 +333,7 @@ li svg {
 }
 
 .single-product img {
-  border-radius: 10px;
+  border-radius: px;
 }
 
 .single-product h1 {
@@ -355,7 +356,7 @@ li svg {
 .img-container {
   border: 2px solid var(--primary-700);
   padding: 16px;
-  border-radius: 5px;
+  border-radius: 10px;
   flex-basis: 384px;
 }
 
@@ -581,6 +582,7 @@ img:focus {
 
 .cart-checkout .checkout {
   flex-grow: 1;
+  flex-basis: 200px;
 }
 
 .empty {
@@ -597,7 +599,7 @@ img:focus {
 
 .cartProduct {
   border-bottom: 1px solid var(--primary-800);
-  padding: 16px 0;
+  padding: 24px 0;
 }
 
 .cartProduct .quantity button {
@@ -875,6 +877,8 @@ footer ul li {
 @media screen and (min-width: 32.5rem) {
   .cartProduct .quantity {
     margin-left: auto;
+    max-width: 300px;
+    flex-basis: 275px;
   }
 
   a.logo {
@@ -1005,7 +1009,7 @@ footer ul li {
 
 @media screen and (min-width: 72.5rem) {
   main {
-    max-width: 1160px;
+    max-width: 72.5rem;
   }
 }
 
