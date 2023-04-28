@@ -27,7 +27,7 @@ function Header({ query, setQuery, setSearchResults }) {
                 <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
                 <Link to="/cart" className="cart">
                     {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects">{totalObj}</span>}</Link>
-                {width < size950pxInRem && <SearchBar />}
+                {width < size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
 
             </div>
             <nav>

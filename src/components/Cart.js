@@ -21,43 +21,38 @@ function Cart() {
         setCart(cart.filter(item => item.id !== id));
     }
 
-    function checkInput(target, index) {
+    function checkValidityOnBlur(target, index) {
         const input = document.querySelector(`#${target}`);
-        const errorMessages = messages.map((message, i) => {
-            if (i === index) {
-                if (input.validity.rangeUnderflow) {
-                    input.setAttribute("aria-invalid", "true");
-                    return "You must have at least a quantity of 1";
-                } else if (input.validity.valueMissing || input.validity.patternMismatch || input.validity.stepMismatch) {
-                    input.setAttribute("aria-invalid", "true");
-                    return "You must write a valid number";
-                } else if (input.validity.rangeOverflow) {
-                    input.setAttribute("aria-invalid", "true");
-                    return "Please write a quantity equal or less than";
+        if (!input.validity.valid) {
+            input.setAttribute("aria-invalid", "true");
+            const errorMessages = messages.map((message, i) => {
+                if (i === index) {
+                    if (input.validity.rangeUnderflow) {
+                        return "You must have at least a quantity of 1";
+                    } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
+                        return "You must write a valid number";
+                    } else if (input.validity.rangeOverflow) {
+                        return "Please write a quantity equal or less than";
+                    }
                 }
-                inputIsValid(target, index);
-            } else {
                 return message;
-            }
-            return message;
-        });
-        setMessages(errorMessages);
+            });
+            setMessages(errorMessages);
+        }
     }
 
-    function inputIsValid(target, index) {
+    function checkValidityOnChange(target, index) {
         const input = document.querySelector(`#${target}`);
-        const errorMessages = messages.map((message, i) => {
-            if (i === index) {
-                if (input.validity.valid) {
-                    input.setAttribute("aria-invalid", "false");
+        if (input.validity.valid) {
+            input.setAttribute("aria-invalid", "false");
+            const errorMessages = messages.map((message, i) => {
+                if (i === index) {
                     return "";
                 }
-            } else {
                 return message;
-            }
-            return message;
-        });
-        setMessages(errorMessages);
+            });
+            setMessages(errorMessages);
+        }
     }
 
     return (
@@ -75,9 +70,9 @@ function Cart() {
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
                                             <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item}
-                                                onBlur={(e) => { checkInput(`${item.id}`, index); handleQuantityInput(e, `${item.id}`, item) }}
-                                                onChange={() => inputIsValid(`${item.id}`, index)}
-                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.id}`); handleQuantityInput(e, `${item.id}`, item) }} />
+                                                onBlur={(e) => { checkValidityOnBlur(`${item.id}`, index); handleQuantityInput(e, `${item.id}`, item) }}
+                                                onChange={() => checkValidityOnChange(`${item.id}`, index)}
+                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.id}`); checkValidityOnChange(`${item.id}`, index); handleQuantityInput(e, `${item.id}`, item) }} />
                                             <Button handle={() => deleteItem(item.id)} text="Remove" productName={item.name} />
                                             <ErrorMessage message={messages[index]} id={item.id} quantity={item.quantity} />
                                         </div>

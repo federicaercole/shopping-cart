@@ -28,22 +28,21 @@ function ProductDetails() {
         }
     }, [zoom])
 
-    function checkInput(target) {
+    function checkValidityOnBlur(target) {
         const input = document.querySelector(`#${target}`);
-        if (input.validity.rangeUnderflow) {
-            setMessage("You must have at least a quantity of 1");
+        if (!input.validity.valid) {
             input.setAttribute("aria-invalid", "true");
-        } else if (input.validity.valueMissing || input.validity.patternMismatch || input.validity.stepMismatch) {
-            setMessage("You must write a valid number");
-            input.setAttribute("aria-invalid", "true");
-        } else if (input.validity.rangeOverflow) {
-            setMessage("Please write a quantity equal or less than");
-            input.setAttribute("aria-invalid", "true");
+            if (input.validity.rangeUnderflow) {
+                setMessage("You must have at least a quantity of 1");
+            } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
+                setMessage("You must write a valid number");
+            } else if (input.validity.rangeOverflow) {
+                setMessage("Please write a quantity equal or less than");
+            }
         }
-        inputIsValid(target);
     }
 
-    function inputIsValid(target) {
+    function checkValidityOnChange(target) {
         const input = document.querySelector(`#${target}`);
         if (input.validity.valid) {
             setMessage("");
@@ -120,9 +119,9 @@ function ProductDetails() {
                     {product.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
                     <div>
                         <QuantityInput defaultValue={1} product={product} input="quantity"
-                            onBlur={() => checkInput("quantity")}
-                            onChange={() => inputIsValid("quantity")}
-                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkInput("quantity") }} />
+                            onBlur={() => checkValidityOnBlur("quantity")}
+                            onChange={() => checkValidityOnChange("quantity")}
+                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkValidityOnChange("quantity") }} />
                     </div>
                     <ErrorMessage message={message} id={product.id} quantity={product.quantity} />
                     <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />

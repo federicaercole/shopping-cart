@@ -122,6 +122,14 @@ nav ul {
   padding: 0;
 }
 
+nav ul li:first-child {
+  margin-left: auto;
+}
+
+nav ul li:last-child {
+  margin-right: auto;
+}
+
 nav ul li {
   flex: 0 0 auto;
   font-size: var(--fs-200);
@@ -256,6 +264,7 @@ li svg {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
   margin-bottom: 32px;
+  gap: 12px;
 }
 
 .category>article {
@@ -278,7 +287,7 @@ li svg {
 
 .category article>img {
   align-self: center;
-  max-height: 128px;
+  max-width: 192px;
 }
 
 .category article p,
@@ -723,6 +732,7 @@ button.cart svg {
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
+  color: var(--primary-900);
 }
 
 .sort-container select {
@@ -853,7 +863,7 @@ footer ul li {
 
 .info {
   background-color: var(--primary-900);
-  padding: 12px 0;
+  padding: 12px;
   margin-top: 16px;
 }
 
@@ -864,9 +874,6 @@ footer ul li {
 /*Media queries*/
 
 @media screen and (min-width: 25rem) {
-  nav ul {
-    justify-content: center;
-  }
 
   .thumbnails img {
     max-width: 96px;
@@ -888,6 +895,10 @@ footer ul li {
   .logo svg {
     width: 32px;
     height: 32px;
+  }
+
+  .category article>img {
+    max-height: 128px;
   }
 
 }
