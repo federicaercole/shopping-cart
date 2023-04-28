@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/shopping-cart/static/css/main.eb975301.css",
-    "main.js": "/shopping-cart/static/js/main.7470b803.js",
+    "main.css": "/shopping-cart/static/css/main.a84f0219.css",
+    "main.js": "/shopping-cart/static/js/main.c02c711c.js",
     "static/media/splendor-gamebox.webp": "/shopping-cart/static/media/splendor-gamebox.79fd97a61925a90f8060.webp",
     "static/media/scythe-gamebox.webp": "/shopping-cart/static/media/scythe-gamebox.e21a62df73a927a0c672.webp",
     "static/media/root-board.jpg": "/shopping-cart/static/media/root-board.51ed97fab0d450a36fcf.jpg",
@@ -54,11 +54,11 @@
     "static/media/6nimmt-small.jpg": "/shopping-cart/static/media/6nimmt-small.270747b13b52a976ddb2.jpg",
     "static/media/quantum-board-small.jpg": "/shopping-cart/static/media/quantum-board-small.6cc5c0afe8ce8d435b4b.jpg",
     "index.html": "/shopping-cart/index.html",
-    "main.eb975301.css.map": "/shopping-cart/static/css/main.eb975301.css.map",
-    "main.7470b803.js.map": "/shopping-cart/static/js/main.7470b803.js.map"
+    "main.a84f0219.css.map": "/shopping-cart/static/css/main.a84f0219.css.map",
+    "main.c02c711c.js.map": "/shopping-cart/static/js/main.c02c711c.js.map"
   },
   "entrypoints": [
-    "static/css/main.eb975301.css",
-    "static/js/main.7470b803.js"
+    "static/css/main.a84f0219.css",
+    "static/js/main.c02c711c.js"
   ]
 }
