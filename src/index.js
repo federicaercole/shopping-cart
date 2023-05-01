@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './fonts/jost.woff2';
 import App from './App';
 import Homepage from "./components/Homepage";
 import ProductDetails from "./components/ProductDetails";

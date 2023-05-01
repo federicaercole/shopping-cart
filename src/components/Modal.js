@@ -33,9 +33,12 @@ function Modal({ close, images, currentImage, currentImageIndex, setCurrentImage
         return () => {
             modal.removeEventListener("keydown", e => focusTrap(e));
             const featImg = document.querySelector(".featured");
-            featImg.focus();
+            if (!featImg) {
+                return;
+            } else {
+                featImg.focus();
+            }
         }
-
     }, [])
 
     useEffect(() => {
