@@ -76,8 +76,8 @@ function Modal({ close, images, currentImage, currentImageIndex, setCurrentImage
 
     return (
         <>
-            <div className="modal" onFocus={e => focusedElement.current = e.target}>
-                <div><p>Image {currentImageIndex + 1} of {images.length}</p>
+            <div role="dialog" className="modal" aria-labelledby="dialog-title" aria-modal="true" onFocus={e => focusedElement.current = e.target}>
+                <div><h2 id="dialog-title">Image {currentImageIndex + 1} of {images.length}</h2>
                     <button className="close" type="button" onClick={close} ref={focusedElement} >{closeModal}<span className="visually-hidden">Close dialog</span></button>
                 </div>
                 <div>
