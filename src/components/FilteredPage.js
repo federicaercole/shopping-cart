@@ -35,10 +35,10 @@ function FilteredPage({ title, category }) {
     const sortedGames = sortGames();
 
     return (
-        <main>
-            <h1>{title}</h1>
-            <div className="breadcrumbs-container">
-                <Breadcrumbs />
+        <>
+            <Breadcrumbs />
+            <main>
+                <h1>{title}</h1>
                 <div className="sort-container">
                     <label htmlFor="sortOptions">Sort by:</label>
                     <select id="sortOptions" name="sortOptions" onChange={(e) => setSortType(e.target.value)}>
@@ -49,11 +49,11 @@ function FilteredPage({ title, category }) {
                         <option value="priceHL">Price: High to Low</option>
                     </select>
                 </div>
-            </div>
-            <div className="category">
-                {sortedGames.map((item) => <ProductCard key={item.id} product={item} />)}
-            </div>
-        </main>)
+                <div className="category">
+                    {sortedGames.map((item) => <ProductCard key={item.id} product={item} />)}
+                </div>
+            </main>
+        </>)
 }
 
 export default FilteredPage;

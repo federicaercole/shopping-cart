@@ -26,11 +26,11 @@ function Header({ query, setQuery, setSearchResults }) {
                 {width >= size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
                 <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
                 <Link to="/cart" className="cart">
-                    {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects">{totalObj}</span>}</Link>
+                    {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects" aria-live="polite" key={totalObj}><span className="visually-hidden">Items:</span> {totalObj}</span>}</Link>
                 {width < size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
 
             </div>
-            <nav>
+            <nav aria-label="Categories">
                 <ul>
                     <li><Link to="/board-games">Board Games</Link></li>
                     <li><Link to="/card-games">Card Games</Link></li>

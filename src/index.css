@@ -79,21 +79,17 @@ body {
 
 .visually-hidden {
   position: absolute;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0;
-  border: 0;
-  height: 1px;
-  width: 1px;
+  left: -10000px;
+  top: auto;
   overflow: hidden;
-  margin: -1px;
-  clip-path: inset(50%);
-  word-wrap: normal;
+  width: 1px;
+  height: 1px;
 }
 
 main {
   padding: 64px 16px;
   justify-self: center;
-  width: 100%;
+  width: min(100%, 72.5rem);
 }
 
 .wrapper {
@@ -138,7 +134,7 @@ header .wrapper {
   flex-wrap: wrap;
 }
 
-nav ul {
+header nav ul {
   display: flex;
   list-style: none;
   gap: 24px;
@@ -146,15 +142,15 @@ nav ul {
   padding: 0;
 }
 
-nav ul li:first-child {
+header nav ul li:first-child {
   margin-left: auto;
 }
 
-nav ul li:last-child {
+header nav ul li:last-child {
   margin-right: auto;
 }
 
-nav ul li {
+header nav ul li {
   flex: 0 0 auto;
   font-size: var(--fs-200);
   padding: 4px;
@@ -238,8 +234,14 @@ form button svg {
 /*Breadcrumbs*/
 
 .breadcrumb {
-  width: 100%;
+  width: min(100%, 1160px);
   font-size: var(--fs-50);
+  margin: 64px auto 0 auto;
+  padding-left: 16px;
+}
+
+.breadcrumb+main {
+  padding-top: 24px;
 }
 
 .breadcrumb ol {
@@ -247,19 +249,6 @@ form button svg {
   display: flex;
   padding: 0;
   gap: 8px;
-}
-
-.breadcrumbs-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.breadcrumbs-container nav {
-  width: auto;
 }
 
 ol li a {
@@ -376,14 +365,28 @@ li svg {
 }
 
 .featured {
-  cursor: zoom-in;
   width: 100%;
   height: 348px;
   object-fit: cover;
 }
 
-.img-container>div:first-of-type {
+.img-container>button {
+  cursor: zoom-in;
   margin-bottom: 12px;
+  width: 100%;
+  height: 348px;
+}
+
+.img-container button {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  display: block;
+}
+
+.img-container button:hover,
+.img-container button:active {
+  background-color: transparent;
 }
 
 .img-container {
@@ -397,12 +400,16 @@ li svg {
   display: flex;
   justify-content: space-evenly;
   gap: 12px;
-  cursor: pointer;
+}
+
+.thumbnails button {
+  height: 64px;
+  width: 64px;
 }
 
 .thumbnails img {
-  max-height: 64px;
-  max-width: 64px;
+  height: 64px;
+  width: 64px;
   object-fit: cover;
 }
 
@@ -411,8 +418,7 @@ li svg {
   padding: 16px;
   border-radius: 10px;
   background-color: var(--primary-700);
-  flex-grow: 1;
-  flex-basis: 150px;
+  flex: 1 1 150px;
 }
 
 .single-product .quantity>div {
@@ -756,7 +762,7 @@ button.cart svg {
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
-  color: var(--primary-900);
+  margin: 0 0 24px 0;
 }
 
 .sort-container select {
@@ -775,6 +781,11 @@ button.cart svg {
   top: 0;
   display: flex;
   flex-direction: column;
+}
+
+#dialog-title {
+  font-size: var(--fs-200);
+  font-weight: 400;
 }
 
 .modal>div img {
@@ -811,6 +822,13 @@ button.cart svg {
 .close {
   padding: 0;
   border: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.close svg {
+  width: 36px;
+  height: 36px;
 }
 
 .arrow {
@@ -899,9 +917,10 @@ footer ul li {
 
 @media screen and (min-width: 25rem) {
 
-  .thumbnails img {
-    max-width: 96px;
-    max-height: 96px;
+  .thumbnails img,
+  .thumbnails button {
+    width: 96px;
+    height: 96px;
   }
 }
 
@@ -1040,12 +1059,6 @@ footer ul li {
     gap: 24px;
   }
 
-}
-
-@media screen and (min-width: 72.5rem) {
-  main {
-    max-width: 72.5rem;
-  }
 }
 
 @media (hover:none) {

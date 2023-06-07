@@ -13,26 +13,27 @@ function Homepage() {
     const sortedGames = sortGames();
 
     return <main>
-        <h2>Latest Arrivals</h2>
-        <div className="scroll-box">
-            <section className="category scroll">
+        <h1 className="visually-hidden">Homepage</h1>
+        <section aria-labelledby="latest-arrival" className="scroll-box">
+            <h2 id="latest-arrival">Latest Arrivals</h2>
+            <div className="category scroll">
                 {products.filter(item => item.latestArrival === true).map(item => <ProductCard product={item} key={item.id} />)}
-            </section>
-        </div>
+            </div>
+        </section>
 
-        <h2>Best-selling</h2>
-        <div className="scroll-box">
-            <section className="category scroll">
+        <section aria-labelledby="best-selling" className="scroll-box">
+            <h2 id="best-selling">Best-selling</h2>
+            <div className="category scroll">
                 {sortedGames.slice(0, 5).map(item => <ProductCard product={item} key={item.id} />)}
-            </section>
-        </div>
+            </div>
+        </section>
 
-        <h2>Our Favorite Games</h2>
-        <div className="scroll-box">
-            <section className="category scroll">
+        <section aria-labelledby="favorites" className="scroll-box">
+            <h2 id="favorites">Our Favorite Games</h2>
+            <div className="category scroll">
                 {products.filter(item => item.highlight === true).map(item => <ProductCard product={item} key={item.id} />)}
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 }
 

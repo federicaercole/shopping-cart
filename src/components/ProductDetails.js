@@ -83,27 +83,18 @@ function ProductDetails() {
 
     return (
         <>
+            <Breadcrumbs />
             <main className="single-product" key={product.id}>
-                <Breadcrumbs />
                 <div className="img-container">
-                    <div>
-                        <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom`} tabIndex={0} onClick={zoomImage}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    e.preventDefault();
-                                    return zoomImage();
-                                }
-                            }}
-                        />
-                    </div>
+                    <button type="button" onClick={zoomImage}>
+                        <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
+                    </button>
                     <div className="thumbnails">
                         {product.imagesSmall.map((image, index) => {
-                            return <img key={index} src={image} alt={altImages[index]} tabIndex={0} onClick={changeFeaturedImage}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        return changeFeaturedImage(e);
-                                    }
-                                }} />
+                            return (
+                                <button key={index} type="button" onClick={changeFeaturedImage}>
+                                    <img src={image} alt={`${altImages[index]} - Click to zoom`} />
+                                </button>)
                         }
                         )}
                     </div>
