@@ -436,11 +436,6 @@ a {
 
 @media (hover: hover) {
 
-  nav:hover,
-  .scroll-box:hover {
-    overflow-x: scroll;
-  }
-
   a:hover {
     color: var(--accent-500);
   }
@@ -498,7 +493,7 @@ a {
     fill: var(--primary-800);
   }
 
-  @media screen and (max-width:49.94rem) {
+  @media screen and (max-width:50rem) {
 
     a.login:hover,
     a.cart:hover {
@@ -1063,12 +1058,12 @@ footer ul li {
 
 @media (hover:none) {
 
-  nav ul::-webkit-scrollbar,
+  header nav ul::-webkit-scrollbar,
   .scroll-box::-webkit-scrollbar {
     display: none;
   }
 
-  nav ul,
+  header nav ul,
   .scroll-box {
     -ms-overflow-style: none;
     scrollbar-width: none;
