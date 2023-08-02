@@ -16,7 +16,7 @@ function ProductDetails() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [message, setMessage] = useState("");
 
-    let currentImage = product.images[currentImageIndex];
+    let currentImage = product.images_big[currentImageIndex];
     let altCurrentImage = altImages[currentImageIndex];
 
     useEffect(() => {
@@ -51,7 +51,7 @@ function ProductDetails() {
     }
 
     function findIndexOfImage(target) {
-        const imagesArray = [...product.imagesSmall];
+        const imagesArray = [...product.images_small];
         return imagesArray.findIndex((image) => target === image);
     }
 
@@ -60,7 +60,7 @@ function ProductDetails() {
         const imgSrc = e.target.getAttribute("src");
         const index = findIndexOfImage(imgSrc);
         setCurrentImageIndex(index);
-        featured.setAttribute("src", product.images[currentImageIndex]);
+        featured.setAttribute("src", product.images_big[currentImageIndex]);
     }
 
     function zoomImage() {
@@ -90,7 +90,7 @@ function ProductDetails() {
                         <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
                     </button>
                     <div className="thumbnails">
-                        {product.imagesSmall.map((image, index) => {
+                        {product.images_small.map((image, index) => {
                             return (
                                 <button key={index} type="button" onClick={changeFeaturedImage}>
                                     <img src={image} alt={`${altImages[index]} - Click to zoom`} />
@@ -118,7 +118,7 @@ function ProductDetails() {
                     <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />
                 </div>
             </main>
-            {zoom && <Modal close={closeZoom} images={product.images} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
+            {zoom && <Modal close={closeZoom} images={product.images_big} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
                 setCurrentImageIndex={setCurrentImageIndex} />}
         </>)
 
