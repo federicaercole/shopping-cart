@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1bb293c4.css",
-    "main.js": "/static/js/main.c9f6e742.js",
+    "main.js": "/static/js/main.ca41f03a.js",
     "static/media/splendor-gamebox.webp": "/static/media/splendor-gamebox.79fd97a61925a90f8060.webp",
     "static/media/scythe-gamebox.webp": "/static/media/scythe-gamebox.e21a62df73a927a0c672.webp",
     "static/media/root-board.jpg": "/static/media/root-board.51ed97fab0d450a36fcf.jpg",
@@ -56,10 +56,10 @@
     "static/media/quantum-board-small.jpg": "/static/media/quantum-board-small.6cc5c0afe8ce8d435b4b.jpg",
     "index.html": "/index.html",
     "main.1bb293c4.css.map": "/static/css/main.1bb293c4.css.map",
-    "main.c9f6e742.js.map": "/static/js/main.c9f6e742.js.map"
+    "main.ca41f03a.js.map": "/static/js/main.ca41f03a.js.map"
   },
   "entrypoints": [
     "static/css/main.1bb293c4.css",
-    "static/js/main.c9f6e742.js"
+    "static/js/main.ca41f03a.js"
   ]
 }
