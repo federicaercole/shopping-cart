@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
       </Route>
     </Route >
-  ), { basename: "/shopping-cart" });
+  ));
 
 const root = ReactDOM.createRoot(document.querySelector('#app'));
 root.render(
