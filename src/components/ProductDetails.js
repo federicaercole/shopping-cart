@@ -1,7 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { infoIcon } from './icons';
-import { altImages } from './products/productImagesList';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
 import QuantityInput from './QuantityInput';
@@ -16,6 +15,7 @@ function ProductDetails() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [message, setMessage] = useState("");
 
+    const altImages = ["Cover of the game", "Gameboard and components", "Details of the components"];
     let currentImage = product.images_big[currentImageIndex];
     let altCurrentImage = altImages[currentImageIndex];
 
@@ -52,7 +52,7 @@ function ProductDetails() {
 
     function findIndexOfImage(target) {
         const imagesArray = [...product.images_small];
-        return imagesArray.findIndex((image) => target === image);
+        return imagesArray.findIndex((image) => target === `${process.env.REACT_APP_IMG_FOLDER}${image}`);
     }
 
     function changeFeaturedImage(e) {
@@ -84,16 +84,16 @@ function ProductDetails() {
     return (
         <>
             <Breadcrumbs />
-            <main className="single-product" key={product.id}>
+            <main className="single-product" key={product.url}>
                 <div className="img-container">
                     <button type="button" onClick={zoomImage}>
-                        <img className="featured" src={currentImage} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
+                        <img className="featured" src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
                     </button>
                     <div className="thumbnails">
                         {product.images_small.map((image, index) => {
                             return (
                                 <button key={index} type="button" onClick={changeFeaturedImage}>
-                                    <img src={image} alt={`${altImages[index]} - Click to zoom`} />
+                                    <img src={`${process.env.REACT_APP_IMG_FOLDER}${image}`} alt={`${altImages[index]} - Click to zoom`} />
                                 </button>)
                         }
                         )}
@@ -114,7 +114,7 @@ function ProductDetails() {
                             onChange={() => checkValidityOnChange("quantity")}
                             handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkValidityOnChange("quantity") }} />
                     </div>
-                    <ErrorMessage message={message} id={product.id} quantity={product.quantity} />
+                    <ErrorMessage message={message} id={product.url} quantity={product.quantity} />
                     <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />
                 </div>
             </main>

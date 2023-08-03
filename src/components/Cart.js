@@ -14,11 +14,11 @@ function Cart() {
     const shippingFee = totalPrice >= 60 ? 0 : 8;
 
     function deleteItem(id) {
-        const index = cart.findIndex((item) => item.id === id);
+        const index = cart.findIndex((item) => item.url === id);
         setCartQuantity(cartQuantity.filter((item, i) => {
             return i !== index;
         }))
-        setCart(cart.filter(item => item.id !== id));
+        setCart(cart.filter(item => item.url !== id));
     }
 
     function checkValidityOnBlur(target, index) {
@@ -63,18 +63,18 @@ function Cart() {
                     <div className="cart-checkout">
                         <div>
                             {cart.map((item, index) =>
-                                <article className="cartProduct" key={item.id}>
+                                <article className="cartProduct" key={item.url}>
                                     <h2>{item.name}</h2>
                                     <div>
-                                        <img src={item.imagesSmall[0]} alt={`Cover of ${item.name}`} />
+                                        <img src={`${process.env.REACT_APP_IMG_FOLDER}${item.images_small[0]}`} alt={`Cover of ${item.name}`} />
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
-                                            <QuantityInput input={`${item.id}`} defaultValue={cartQuantity[index]} product={item}
-                                                onBlur={(e) => { checkValidityOnBlur(`${item.id}`, index); handleQuantityInput(e, `${item.id}`, item) }}
-                                                onChange={() => checkValidityOnChange(`${item.id}`, index)}
-                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.id}`); checkValidityOnChange(`${item.id}`, index); handleQuantityInput(e, `${item.id}`, item) }} />
-                                            <Button handle={() => deleteItem(item.id)} text="Remove" productName={item.name} />
-                                            <ErrorMessage message={messages[index]} id={item.id} quantity={item.quantity} />
+                                            <QuantityInput input={`${item.url}`} defaultValue={cartQuantity[index]} product={item}
+                                                onBlur={(e) => { checkValidityOnBlur(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }}
+                                                onChange={() => checkValidityOnChange(`${item.url}`, index)}
+                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.url}`); checkValidityOnChange(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }} />
+                                            <Button handle={() => deleteItem(item.url)} text="Remove" productName={item.name} />
+                                            <ErrorMessage message={messages[index]} id={item.url} quantity={item.quantity} />
                                         </div>
                                     </div>
                                 </article>)}
