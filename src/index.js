@@ -11,8 +11,13 @@ import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } 
 import { CartContextProvider } from './components/CartContext';
 
 async function fetchAPI(path) {
-  const response = await fetch(`${process.env.REACT_APP_API}${path}`);
-  return await response.json();
+  if (path) {
+    const response = await fetch(`${process.env.REACT_APP_API}${path}`);
+    return await response.json();
+  } else {
+    const response = await fetch(`${process.env.REACT_APP_API}`);
+    return await response.json();
+  }
 }
 
 async function loadProduct({ params }) {
@@ -20,10 +25,15 @@ async function loadProduct({ params }) {
   return { product };
 }
 
+async function loadHomepageProducts() {
+  const data = await fetchAPI();
+  return { data };
+}
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<App />} handle={{ crumb: () => "Home", }}>
-      <Route path="/" index element={<Homepage />} />
+      <Route path="/" index element={<Homepage />} loader={loadHomepageProducts} />
       <Route path="/cart" element={<Cart />} />
 
       <Route path="/board-games" handle={{ crumb: () => "Board Games" }}>

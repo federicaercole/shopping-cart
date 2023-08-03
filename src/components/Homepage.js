@@ -1,6 +1,5 @@
 import ProductCard from "./ProductCard";
 import { useLoaderData } from 'react-router-dom';
-// import { products } from "./products/products";
 
 function Homepage() {
     const { data } = useLoaderData();
