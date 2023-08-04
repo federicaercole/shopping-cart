@@ -9,26 +9,7 @@ import Cart from "./components/Cart";
 import FilteredPage from "./components/FilteredPage";
 import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from "react-router-dom";
 import { CartContextProvider } from './components/CartContext';
-
-async function fetchAPI(path) {
-  if (path) {
-    const response = await fetch(`${process.env.REACT_APP_API}${path}`);
-    return await response.json();
-  } else {
-    const response = await fetch(`${process.env.REACT_APP_API}`);
-    return await response.json();
-  }
-}
-
-async function loadProduct({ params }) {
-  const product = await fetchAPI(params.productId);
-  return { product };
-}
-
-async function loadHomepageProducts() {
-  const data = await fetchAPI();
-  return { data };
-}
+import { loadProduct, loadHomepageProducts } from './components/utils/api';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,17 +18,17 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<Cart />} />
 
       <Route path="/board-games" handle={{ crumb: () => "Board Games" }}>
-        <Route index element={<FilteredPage key="board-games" category="board-game" title="All Board Games" />} />
+        <Route index element={<FilteredPage key="board-games" title="All Board Games" />} />
         <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
       </Route>
 
       <Route path="/card-games" handle={{ crumb: () => "Card Games" }}>
-        <Route index element={<FilteredPage key="card-games" category="card-game" title="All Card Games" />} />
+        <Route index element={<FilteredPage key="card-games" title="All Card Games" />} />
         <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
       </Route>
 
       <Route path="/rpgs" handle={{ crumb: () => "RPGs" }}>
-        <Route index element={<FilteredPage key="rpgs" category="rpg" title="All RolePlaying Games" />} />
+        <Route index element={<FilteredPage key="rpgs" title="All RolePlaying Games" />} />
         <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
       </Route>
     </Route >
