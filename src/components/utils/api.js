@@ -18,8 +18,14 @@ export async function loadHomepageProducts() {
     return { data };
 }
 
-export async function loadCategoryProducts(string) {
-    const data = await fetchAPI(`category${string}`);
+export async function loadCategoryProducts({ request }) {
+    const url = new URL(request.url);
+    const data = await fetchAPI(`category${url.pathname}`);
+    return { data };
+}
+
+export async function sortProducts(filter) {
+    const data = await fetchAPI(filter);
     return data;
 }
 
