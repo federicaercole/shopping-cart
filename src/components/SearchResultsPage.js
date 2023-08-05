@@ -1,19 +1,15 @@
-import { useEffect } from "react";
 import ProductCard from "./ProductCard";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 
-
-function SearchResultsPage({ keyword, searchResults }) {
-
-    useEffect(() => {
-        const searchInput = document.querySelector("#search");
-        searchInput.value = "";
-    }, [])
+function SearchResultsPage() {
+    const { data } = useLoaderData();
+    const submittedInput = useOutletContext();
 
     return (<main>
-        {searchResults.length !== 0 ?
-            <><h1>Search results for {keyword}</h1>
+        {data.length !== 0 ?
+            <><h1>Search results for {submittedInput}</h1>
                 <div className="category">
-                    {searchResults.map((item) => <ProductCard key={item.id} product={item} />)}
+                    {data.map((item) => <ProductCard key={item.url} product={item} />)}
                 </div></> : <h1>There are no results</h1>}
     </main>)
 }

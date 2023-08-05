@@ -4,7 +4,7 @@ import { logo, cartIcon, userIcon } from "./icons";
 import SearchBar from "./SearchBar";
 import { CartContext } from "./CartContext";
 
-function Header({ query, setQuery, setSearchResults }) {
+function Header({ query, setQuery, setSubmittedInput }) {
     const { cartQuantity } = useContext(CartContext);
     const fontSize = 16;
     const [width, setWidth] = useState(window.innerWidth / fontSize); //value in rem
@@ -23,11 +23,11 @@ function Header({ query, setQuery, setSearchResults }) {
                 <Link to="/" className="logo">
                     {logo} Good Board Games
                 </Link>
-                {width >= size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
+                {width >= size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSubmittedInput={setSubmittedInput} />}
                 <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
                 <Link to="/cart" className="cart">
                     {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects" aria-live="polite" key={totalObj}><span className="visually-hidden">Items:</span> {totalObj}</span>}</Link>
-                {width < size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSearchResults={setSearchResults} />}
+                {width < size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSubmittedInput={setSubmittedInput} />}
 
             </div>
             <nav aria-label="Categories">

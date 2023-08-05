@@ -22,3 +22,9 @@ export async function loadCategoryProducts(string) {
     const data = await fetchAPI(`category${string}`);
     return data;
 }
+
+export async function loadSearchResults({ request }) {
+    const url = new URL(request.url);
+    const data = await fetchAPI(`search${url.search}`);
+    return { data };
+}
