@@ -7,13 +7,14 @@ import Homepage from "./components/Homepage";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import FilteredPage from "./components/FilteredPage";
+import ErrorPage from './components/ErrorPage';
 import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from "react-router-dom";
 import { CartContextProvider } from './components/CartContext';
 import { loadProduct, loadHomepageProducts, loadCategoryProducts, loadSearchResults } from './components/utils/api';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<App />} handle={{ crumb: () => "Home", }}>
+    <Route element={<App />} handle={{ crumb: () => "Home" }} errorElement={<ErrorPage />}>
       <Route path="/" index element={<Homepage />} loader={loadHomepageProducts} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/search" element={<FilteredPage />} loader={loadSearchResults} />
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route index element={<FilteredPage key="rpgs" title="All RolePlaying Games" />} loader={loadCategoryProducts} />
         <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
       </Route>
+      <Route path="*" element={<ErrorPage />} loader={loadCategoryProducts} />
     </Route >
   ));
 

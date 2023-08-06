@@ -11,7 +11,7 @@ function FilteredPage({ title }) {
     const [sortedProducts, setSortedProducts] = useState([]);
 
     async function getSortedProducts(filter) {
-        if (location.search === "") {
+        if (location.pathname !== "/search") {
             setSortedProducts(await sortProducts(`category${location.pathname}?sort=${filter}`))
         } else {
             setSortedProducts(await sortProducts(`search${location.search}&sort=${filter}`));
@@ -20,7 +20,7 @@ function FilteredPage({ title }) {
 
     return (
         <>
-            {location.search === "" && <Breadcrumbs />}
+            {location.pathname !== "/search" && <Breadcrumbs />}
             <main>
                 {data.length !== 0 ?
                     <>

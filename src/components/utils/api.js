@@ -1,10 +1,15 @@
-async function fetchAPI(path) {
-    if (path) {
-        const response = await fetch(`${process.env.REACT_APP_API}${path}`);
-        return await response.json();
-    } else {
-        const response = await fetch(`${process.env.REACT_APP_API}`);
-        return await response.json();
+async function fetchAPI(path = "") {
+    const response = await fetch(`${process.env.REACT_APP_API}${path}`);
+    checkStatus(response);
+    return await response.json();
+}
+
+function checkStatus(response) {
+    if (response.status === 404) {
+        throw new Response("Not Found", { status: 404 });
+    }
+    if (!response.ok) {
+        throw new Response("Server Problems", { status: 500 });
     }
 }
 
