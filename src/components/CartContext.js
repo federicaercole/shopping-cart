@@ -11,7 +11,7 @@ export const CartContextProvider = ({ children }) => {
         if (!quantityInput.checkValidity()) {
             e.preventDefault();
         } else {
-            const index = cart.findIndex((item) => item.id === product.id);
+            const index = cart.findIndex((item) => item.url === product.url);
             if (index < 0) {
                 setCart(cart.concat(product));
                 setCartQuantity(cartQuantity.concat(Number(quantityInput.value)));
