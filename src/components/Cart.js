@@ -73,7 +73,7 @@ function Cart() {
                                                 onBlur={(e) => { checkValidityOnBlur(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }}
                                                 onChange={() => checkValidityOnChange(`${item.url}`, index)}
                                                 handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.url}`); checkValidityOnChange(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }} />
-                                            <Button handle={() => deleteItem(item.url)} text="Remove" productName={item.name} />
+                                            <Button handle={() => deleteItem(item.url)}>Remove <span className="visually-hidden">{item.name} from cart</span></Button>
                                             <ErrorMessage message={messages[index]} id={item.url} quantity={item.quantity} />
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@ function Cart() {
                             <p>Number of articles: {totalObj}</p>
                             <p>{shippingFee === 0 ? "Free shipping" : "Shipping fee: " + shippingFee + "€"}</p>
                             <p className="price">Total: {totalPrice + shippingFee}<span>€</span></p>
-                            <button type="button">Checkout</button>
+                            <Button>Checkout</Button>
                         </div>
                     </div>
                 </>

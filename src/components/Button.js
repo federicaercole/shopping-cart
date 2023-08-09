@@ -1,12 +1,8 @@
-import { cartIcon } from "./icons";
-
-function Button({ text, className, handle, productName }) {
+function Button({ type = "button", className, handle, children }) {
 
     return (
-        <button type="button" onClick={handle} className={className}>
-            {text === "Add to Cart" && cartIcon}
-            {text}
-            {text === "Remove" && <span className="visually-hidden">{productName} from cart</span>}
+        <button type={type} onClick={handle} className={className}>
+            {children}
         </button>
     )
 }

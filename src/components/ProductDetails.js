@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { infoIcon } from './icons';
+import { infoIcon, cartIcon } from './icons';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
 import QuantityInput from './QuantityInput';
@@ -86,15 +86,15 @@ function ProductDetails() {
             <Breadcrumbs />
             <main className="single-product" key={product.url}>
                 <div className="img-container">
-                    <button type="button" onClick={zoomImage}>
+                    <Button handle={zoomImage}>
                         <img className="featured" src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
-                    </button>
+                    </Button>
                     <div className="thumbnails">
                         {product.images_small.map((image, index) => {
                             return (
-                                <button key={index} type="button" onClick={changeFeaturedImage}>
+                                <Button key={index} handle={changeFeaturedImage}>
                                     <img src={`${process.env.REACT_APP_IMG_FOLDER}${image}`} alt={`${altImages[index]} - Click to zoom`} />
-                                </button>)
+                                </Button>)
                         }
                         )}
                     </div>
@@ -115,7 +115,7 @@ function ProductDetails() {
                             handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkValidityOnChange("quantity") }} />
                     </div>
                     <ErrorMessage message={message} id={product.url} quantity={product.quantity} />
-                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} text="Add to Cart" className="cart" />
+                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} className="cart">{cartIcon} Add to cart</Button>
                 </div>
             </main>
             {zoom && <Modal close={closeZoom} images={product.images_big} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}
