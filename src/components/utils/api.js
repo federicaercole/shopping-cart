@@ -1,7 +1,7 @@
 async function fetchAPI(path = "") {
     const response = await fetch(`${process.env.REACT_APP_API}${path}`);
     checkStatus(response);
-    return await response.json();
+    return response.json();
 }
 
 function checkStatus(response) {
@@ -14,28 +14,23 @@ function checkStatus(response) {
 }
 
 export async function loadProduct({ params }) {
-    const product = await fetchAPI(params.productId);
-    return { product };
+    return await fetchAPI(params.productId);
 }
 
 export async function loadHomepageProducts() {
-    const data = await fetchAPI();
-    return { data };
+    return await fetchAPI();
 }
 
 export async function loadCategoryProducts({ request }) {
     const url = new URL(request.url);
-    const data = await fetchAPI(`category${url.pathname}`);
-    return { data };
+    return fetchAPI(`category${url.pathname}`);
 }
 
 export async function sortProducts(filter) {
-    const data = await fetchAPI(filter);
-    return data;
+    return fetchAPI(filter);
 }
 
 export async function loadSearchResults({ request }) {
     const url = new URL(request.url);
-    const data = await fetchAPI(`search${url.search}`);
-    return { data };
-}
+    return fetchAPI(`search${url.search}`);
+};

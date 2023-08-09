@@ -17,17 +17,17 @@ const Router = () => {
 
                 <Route path="/board-games" handle={{ crumb: () => "Board Games" }}>
                     <Route index element={<FilteredPage key="board-games" title="All Board Games" />} loader={loadCategoryProducts} />
-                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
+                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (product) => product.name }} />
                 </Route>
 
                 <Route path="/card-games" handle={{ crumb: () => "Card Games" }}>
                     <Route index element={<FilteredPage key="card-games" title="All Card Games" />} loader={loadCategoryProducts} />
-                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
+                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (product) => product.name }} />
                 </Route>
 
                 <Route path="/rpgs" handle={{ crumb: () => "RPGs" }}>
                     <Route index element={<FilteredPage key="rpgs" title="All RolePlaying Games" />} loader={loadCategoryProducts} />
-                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (data) => data.product.name }} />
+                    <Route path=":productId" element={<ProductDetails />} loader={loadProduct} handle={{ crumb: (product) => product.name }} />
                 </Route>
                 <Route path="*" element={<ErrorPage />} loader={loadCategoryProducts} />
             </Route >

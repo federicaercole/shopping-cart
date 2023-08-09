@@ -10,7 +10,7 @@ import Breadcrumbs from './Breadcrumbs';
 
 function ProductDetails() {
     const { handleQuantityInput, changeQuantityButtons } = useContext(CartContext);
-    const { product } = useLoaderData();
+    const product = useLoaderData();
     const [zoom, setZoom] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [message, setMessage] = useState("");
@@ -73,7 +73,7 @@ function ProductDetails() {
 
     useEffect(() => {
         const input = document.querySelector("#quantity");
-        const buttons = [...document.querySelectorAll("button")];
+        const buttons = [...document.querySelectorAll(".quantity button")];
 
         if (product.quantity === 0) {
             input.disabled = true;

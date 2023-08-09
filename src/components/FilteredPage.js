@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import Breadcrumbs from "./Breadcrumbs";
 
 function FilteredPage({ title }) {
-    const { data } = useLoaderData();
+    const data = useLoaderData();
     const location = useLocation();
     const submittedInput = useOutletContext();
     const [sortedProducts, setSortedProducts] = useState([]);

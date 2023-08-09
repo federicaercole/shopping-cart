@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard";
 import { useLoaderData } from 'react-router-dom';
 
 function Homepage() {
-    const { data } = useLoaderData();
+    const data = useLoaderData();
 
     return <main>
         <h1 className="visually-hidden">Homepage</h1>
