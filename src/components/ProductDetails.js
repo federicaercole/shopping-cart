@@ -1,5 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { infoIcon, cartIcon } from './icons';
 import Modal from './Modal';
 import ErrorMessage from './ErrorMessage';
@@ -14,6 +14,8 @@ function ProductDetails() {
     const [zoom, setZoom] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [message, setMessage] = useState("");
+    const featImgRef = useRef(null);
+    const selectedImage = useRef(null);
 
     const altImages = ["Cover of the game", "Gameboard and components", "Details of the components"];
     let currentImage = product.images_big[currentImageIndex];
@@ -52,15 +54,14 @@ function ProductDetails() {
 
     function findIndexOfImage(target) {
         const imagesArray = [...product.images_small];
-        return imagesArray.findIndex((image) => target === `${process.env.REACT_APP_IMG_FOLDER}${image}`);
+        return imagesArray.findIndex(image => target === `${process.env.REACT_APP_IMG_FOLDER}${image}`);
     }
 
     function changeFeaturedImage(e) {
-        const featured = document.querySelector(".featured");
-        const imgSrc = e.target.getAttribute("src");
-        const index = findIndexOfImage(imgSrc);
+        selectedImage.current = e.currentTarget.firstChild;
+        const index = findIndexOfImage(selectedImage.current.getAttribute("src"));
         setCurrentImageIndex(index);
-        featured.setAttribute("src", product.images_big[currentImageIndex]);
+        featImgRef.current.setAttribute("src", `${process.env.REACT_APP_IMG_FOLDER}${currentImage}`);
     }
 
     function zoomImage() {
@@ -69,24 +70,15 @@ function ProductDetails() {
 
     function closeZoom() {
         setZoom(false);
+        featImgRef.current.focus();
     }
-
-    useEffect(() => {
-        const input = document.querySelector("#quantity");
-        const buttons = [...document.querySelectorAll(".quantity button")];
-
-        if (product.quantity === 0) {
-            input.disabled = true;
-            buttons.forEach(button => button.disabled = true)
-        }
-    }, [product.quantity])
 
     return (
         <>
             <Breadcrumbs />
             <main className="single-product" key={product.url}>
                 <div className="img-container">
-                    <Button handle={zoomImage}>
+                    <Button handle={zoomImage} innerRef={featImgRef}>
                         <img className="featured" src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
                     </Button>
                     <div className="thumbnails">
@@ -114,8 +106,8 @@ function ProductDetails() {
                             onChange={() => checkValidityOnChange("quantity")}
                             handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkValidityOnChange("quantity") }} />
                     </div>
-                    <ErrorMessage message={message} id={product.url} quantity={product.quantity} />
-                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} className="cart">{cartIcon} Add to cart</Button>
+                    <ErrorMessage message={message} id={product.url} />
+                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} className="cart" disabled={!product.quantity}>{cartIcon} Add to cart</Button>
                 </div>
             </main>
             {zoom && <Modal close={closeZoom} images={product.images_big} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}

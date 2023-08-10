@@ -1,62 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { closeModal, nextIcon, prevIcon } from "./icons";
 
 function Modal({ close, images, currentImage, currentImageIndex, setCurrentImageIndex, altCurrentImage }) {
-    const focusedElement = useRef(null);
+    const focusableElements = useRef([]);
 
-    useEffect(() => {
-        focusedElement.current.focus();
+    const setFocusableElements = element => {
+        if (!element) return;
+        if (focusableElements.current.find(focusableElement => focusableElement === element)) return;
+        focusableElements.current = [...focusableElements.current, element];
+    };
 
-        const modal = document.querySelector(".modal");
-        const firstFocusableElement = modal.querySelectorAll("button")[0];
-        const focusableContent = modal.querySelectorAll("button");
-        const lastFocusableElement = focusableContent[focusableContent.length - 1];
+    const focusTrap = (e) => {
+        const elements = focusableElements.current;
+        const firstElement = elements[0];
+        const lastElement = elements[elements.length - 1];
 
-        function focusTrap(e) {
-            if (e.key === "Tab" && !e.shiftKey) {
-                if (focusedElement.current === lastFocusableElement) {
-                    firstFocusableElement.focus();
-                    e.preventDefault();
-                }
-            }
-            else if (e.key === "Tab" && e.shiftKey) {
-                if (focusedElement.current === firstFocusableElement) {
-                    lastFocusableElement.focus();
-                    e.preventDefault();
-                }
-            }
-            else return;
-        };
-
-        modal.addEventListener("keydown", e => focusTrap(e));
-
-        return () => {
-            modal.removeEventListener("keydown", e => focusTrap(e));
-            const featImg = document.querySelector(".featured");
-            if (!featImg) {
-                return;
-            } else {
-                featImg.focus();
+        if (e.key === "Tab" && !e.shiftKey) {
+            if (document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
             }
         }
-    }, [])
-
-    useEffect(() => {
-        const modal = document.querySelector(".modal");
-        function keyboardButtons(e) {
-            switch (true) {
-                case e.key === "Escape": return close();
-                case e.key === "ArrowLeft": return prevImage();
-                case e.key === "ArrowRight": return nextImage();
-                default: return;
+        else if (e.key === "Tab" && e.shiftKey) {
+            if (document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
             }
         }
-        modal.addEventListener("keydown", e => keyboardButtons(e));
+        else return;
+    };
 
-        return () => {
-            modal.removeEventListener("keydown", e => keyboardButtons(e));
+    function handleKeyboardButtons(e) {
+        switch (true) {
+            case e.key === "Escape": return close();
+            case e.key === "ArrowLeft": return prevImage();
+            case e.key === "ArrowRight": return nextImage();
+            case e.key === "Tab": return focusTrap(e);
+            default: return;
         }
-    });
+    }
 
     function prevImage() {
         if (currentImageIndex === 0) {
@@ -76,13 +58,13 @@ function Modal({ close, images, currentImage, currentImageIndex, setCurrentImage
 
     return (
         <>
-            <div role="dialog" className="modal" aria-labelledby="dialog-title" aria-modal="true" onFocus={e => focusedElement.current = e.target}>
+            <div role="dialog" className="modal" aria-labelledby="dialog-title" aria-modal="true" onKeyDown={handleKeyboardButtons}>
                 <div><h2 id="dialog-title">Image {currentImageIndex + 1} of {images.length}</h2>
-                    <button className="close" type="button" onClick={close} ref={focusedElement} >{closeModal}<span className="visually-hidden">Close</span></button>
+                    <button className="close" type="button" onClick={close} ref={setFocusableElements} autoFocus>{closeModal}<span className="visually-hidden">Close</span></button>
                 </div>
                 <div>
-                    <button className="arrow" type="button" onClick={prevImage}>{prevIcon}<span className="visually-hidden">Go to previous image</span></button>
-                    <button className="arrow" type="button" onClick={nextImage}>{nextIcon}<span className="visually-hidden">Go to next image</span></button>
+                    <button className="arrow" type="button" onClick={prevImage} ref={setFocusableElements}>{prevIcon}<span className="visually-hidden">Go to previous image</span></button>
+                    <button className="arrow" type="button" onClick={nextImage} ref={setFocusableElements}>{nextIcon}<span className="visually-hidden">Go to next image</span></button>
                 </div>
                 <div>
                     <img src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={altCurrentImage} />
