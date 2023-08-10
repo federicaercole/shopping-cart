@@ -37,7 +37,7 @@ function ProductDetails() {
             } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
                 setMessage("You must write a valid number");
             } else if (input.validity.rangeOverflow) {
-                setMessage("Please write a quantity equal or less than");
+                setMessage(`Please write a quantity equal or less than ${product.quantity}`);
             }
         }
     }

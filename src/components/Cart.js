@@ -22,7 +22,7 @@ function Cart() {
     }
 
     function checkValidityOnBlur(target, index) {
-        const input = document.querySelector(`#${target}`);
+        const input = document.querySelector(`#${target.url}`);
         if (!input.validity.valid) {
             input.setAttribute("aria-invalid", "true");
             const errorMessages = messages.map((message, i) => {
@@ -32,7 +32,7 @@ function Cart() {
                     } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
                         return "You must write a valid number";
                     } else if (input.validity.rangeOverflow) {
-                        return "Please write a quantity equal or less than";
+                        return `Please write a quantity equal or less than ${target.quantity}`;
                     }
                 }
                 return message;
@@ -70,11 +70,11 @@ function Cart() {
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
                                             <QuantityInput input={`${item.url}`} defaultValue={cartQuantity[index]} product={item}
-                                                onBlur={(e) => { checkValidityOnBlur(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }}
+                                                onBlur={(e) => { checkValidityOnBlur(item, index); handleQuantityInput(e, `${item.url}`, item) }}
                                                 onChange={() => checkValidityOnChange(`${item.url}`, index)}
                                                 handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.url}`); checkValidityOnChange(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }} />
                                             <Button handle={() => deleteItem(item.url)}>Remove <span className="visually-hidden">{item.name} from cart</span></Button>
-                                            <ErrorMessage message={messages[index]} id={item.url} quantity={item.quantity} />
+                                            <ErrorMessage message={messages[index]} id={item.url} />
                                         </div>
                                     </div>
                                 </article>)}

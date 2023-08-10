@@ -1,9 +1,9 @@
 import { errorIcon } from "./icons";
 
-function ErrorMessage({ message, quantity, id }) {
+function ErrorMessage({ message, id }) {
 
     if (message !== "") {
-        return <p id={`error-${id}`} className="warning">{errorIcon} {message} {message === "Please write a quantity equal or less than" && quantity}</p>
+        return <p id={`error-${id}`} className="warning">{errorIcon} {message}</p>
     }
 }
 
