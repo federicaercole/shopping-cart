@@ -104,6 +104,10 @@ h1 {
   line-height: 1.1;
 }
 
+h1+.sort-container {
+  margin-top: 16px;
+}
+
 
 h2 {
   font-size: var(--fs-400);
@@ -131,6 +135,7 @@ header .wrapper {
   display: flex;
   padding: 16px;
   gap: 8px;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
@@ -185,6 +190,11 @@ form {
   margin-right: auto;
   display: flex;
   width: 100%;
+  flex-direction: column;
+}
+
+form>div {
+  display: flex;
 }
 
 a.cart {
@@ -482,14 +492,16 @@ a {
     border-color: var(--accent-900);
   }
 
-  .quantity button:disabled:hover {
+  .quantity button:disabled:hover,
+  .quantity .cart:disabled:active {
     cursor: auto;
     color: var(--primary-800);
     border-color: var(--primary-800);
     background-color: transparent;
   }
 
-  .quantity button:disabled:hover svg {
+  .quantity button:disabled:hover svg,
+  .quantity .cart:disabled:active svg {
     fill: var(--primary-800);
   }
 
