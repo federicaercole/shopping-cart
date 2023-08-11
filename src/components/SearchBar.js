@@ -11,7 +11,7 @@ function SearchBar({ query, setQuery, setSubmittedInput }) {
     const location = useLocation();
 
     function handleSubmit(e) {
-        const value = inputRef.current.value;
+        const value = inputRef.current.value.trim();
 
         if (!value) {
             e.preventDefault();
@@ -21,11 +21,11 @@ function SearchBar({ query, setQuery, setSubmittedInput }) {
         }
     }
 
-    function handleChange(e) {
-        const value = inputRef.current.value
+    function handleChange() {
+        const value = inputRef.current.value.trim();
 
         if (value) {
-            setQuery(e.target.value);
+            setQuery(value);
             setMessage("");
         }
     }
@@ -38,8 +38,8 @@ function SearchBar({ query, setQuery, setSubmittedInput }) {
         <Form id="search-form" method="get" role="search" action="/search" >
             <div>
                 <label htmlFor="search" className="visually-hidden">Search game</label>
-                <input key="input" type="text" id="search" name="s" ref={inputRef} onChange={(e) => handleChange(e)} aria-describedby="error-search" />
-                <Button type="submit" handle={(e) => handleSubmit(e)}>{searchIcon}<span className="visually-hidden">Search</span></Button>
+                <input key="input" type="text" id="search" name="s" ref={inputRef} onChange={handleChange} aria-describedby="error-search" />
+                <Button type="submit" handle={handleSubmit}>{searchIcon}<span className="visually-hidden">Search</span></Button>
             </div>
             <ErrorMessage message={message} id="search" />
         </Form>

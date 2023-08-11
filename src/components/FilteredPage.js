@@ -22,7 +22,7 @@ function FilteredPage({ title }) {
         <>
             {location.pathname !== "/search" && <Breadcrumbs />}
             <main>
-                {data.length !== 0 ?
+                {data.length !== 0 && !data.message ?
                     <>
                         <h1>{title ? title : `Search results for ${submittedInput}`}</h1>
                         <div className="sort-container">
@@ -38,7 +38,10 @@ function FilteredPage({ title }) {
                         <div className="category">
                             {sortedProducts.length === 0 ? data.map((item) => <ProductCard key={item.url} product={item} />) : sortedProducts.map((item) => <ProductCard key={item.url} product={item} />)}
                         </div>
-                    </> : <h1>There are no results</h1>}
+                    </> : <>
+                        <h1>There are no results</h1>
+                        <p>Please retry with a different keyword.</p>
+                    </>}
             </main>
         </>)
 }
