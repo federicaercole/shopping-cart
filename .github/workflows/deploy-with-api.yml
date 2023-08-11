@@ -1,31 +1,26 @@
-name: deploy with API
-
+name: Deploy with API
 on:
-  push:
-    branches:
-      - api-integration
-
+      push:
+        branches:
+          - api-integration
 jobs:
-  build:
+      build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v1
 
-    runs-on: ubuntu-latest
+        - name: Build
+          run: |
+            npm install
+            npm run-script build
+          env:
+            REACT_APP_API: ${{ secrets.REACT_APP_API }}
+            REACT_APP_IMG_FOLDER: ${{ secrets.REACT_APP_IMG_FOLDER }}
 
-    steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Build
-      run: |
-        npm install
-        npm run-script build
-      env:
-        REACT_APP_API: ${{ secrets.REACT_APP_API }}
-        REACT_APP_IMG_FOLDER: ${{ secrets.REACT_APP_IMG_FOLDER }}
-
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+        - name: Deploy
+          uses: JamesIves/github-pages-deploy-action@releases/v3
+          with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_KEY }}
+            BRANCH: gh-pages
+            FOLDER: build
