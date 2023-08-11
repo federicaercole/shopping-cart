@@ -1,6 +1,6 @@
 # Shopping Cart
 A fake online store done in React, a project from [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-shopping-cart).  
-[Live version](https://federicaercole.github.io/shopping-cart/)
+[Live version](https://shopapp.federicaercole.com)
 
 Read the [case study](https://federicaercole.com/shop/) (only in italian).
 
