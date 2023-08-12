@@ -66,7 +66,7 @@ function Cart() {
                                 <article className="cartProduct" key={item.url}>
                                     <h2>{item.name}</h2>
                                     <div>
-                                        <img src={`${process.env.REACT_APP_IMG_FOLDER}${item.images_small[0]}`} alt={`Cover of ${item.name}`} />
+                                        <img src={`/images/${item.images_small[0]}`} alt={`Cover of ${item.name}`} />
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
                                             <QuantityInput input={`${item.url}`} defaultValue={cartQuantity[index]} product={item}

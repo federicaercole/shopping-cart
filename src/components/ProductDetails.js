@@ -54,14 +54,14 @@ function ProductDetails() {
 
     function findIndexOfImage(target) {
         const imagesArray = [...product.images_small];
-        return imagesArray.findIndex(image => target === `${process.env.REACT_APP_IMG_FOLDER}${image}`);
+        return imagesArray.findIndex(image => target === `/images/${image}`);
     }
 
     function changeFeaturedImage(e) {
         selectedImage.current = e.currentTarget.firstChild;
         const index = findIndexOfImage(selectedImage.current.getAttribute("src"));
         setCurrentImageIndex(index);
-        featImgRef.current.setAttribute("src", `${process.env.REACT_APP_IMG_FOLDER}${currentImage}`);
+        featImgRef.current.setAttribute("src", `/images/${currentImage}`);
     }
 
     function zoomImage() {
@@ -79,13 +79,13 @@ function ProductDetails() {
             <main className="single-product" key={product.url}>
                 <div className="img-container">
                     <Button handle={zoomImage} innerRef={featImgRef}>
-                        <img className="featured" src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
+                        <img className="featured" src={`/images/${currentImage}`} alt={`${altCurrentImage} - Click to zoom (open a pop-up)`} />
                     </Button>
                     <div className="thumbnails">
                         {product.images_small.map((image, index) => {
                             return (
                                 <Button key={index} handle={changeFeaturedImage}>
-                                    <img src={`${process.env.REACT_APP_IMG_FOLDER}${image}`} alt={`${altImages[index]} - Click to zoom`} />
+                                    <img src={`/images/${image}`} alt={`${altImages[index]} - Click to zoom`} />
                                 </Button>)
                         }
                         )}

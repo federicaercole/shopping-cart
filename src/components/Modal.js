@@ -67,7 +67,7 @@ function Modal({ close, images, currentImage, currentImageIndex, setCurrentImage
                     <button className="arrow" type="button" onClick={nextImage} ref={setFocusableElements}>{nextIcon}<span className="visually-hidden">Go to next image</span></button>
                 </div>
                 <div>
-                    <img src={`${process.env.REACT_APP_IMG_FOLDER}${currentImage}`} alt={altCurrentImage} />
+                    <img src={`/images/${currentImage}`} alt={altCurrentImage} />
                 </div>
             </div>
         </>)

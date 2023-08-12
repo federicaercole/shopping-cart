@@ -1,5 +1,5 @@
 async function fetchAPI(path = "") {
-    const response = await fetch(`${process.env.REACT_APP_API}${path}`);
+    const response = await fetch(`https://shopping-cart-api-production-4bc5.up.railway.app/api/${path}`);
     checkStatus(response);
     return response.json();
 }
