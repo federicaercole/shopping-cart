@@ -4,11 +4,11 @@ import ProductDetails from "./ProductDetails";
 import Cart from "./Cart";
 import FilteredPage from "./FilteredPage";
 import ErrorPage from './ErrorPage';
-import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from "react-router-dom";
+import { createHashRouter, RouterProvider, Route, createRoutesFromElements } from "react-router-dom";
 import { loadProduct, loadHomepageProducts, loadCategoryProducts, loadSearchResults } from './utils/api';
 
 const Router = () => {
-    const router = createBrowserRouter(
+    const router = createHashRouter(
         createRoutesFromElements(
             <Route element={<App />} handle={{ crumb: () => "Home" }} errorElement={<ErrorPage />}>
                 <Route path="/" index element={<Homepage />} loader={loadHomepageProducts} />
