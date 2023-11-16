@@ -8,9 +8,9 @@ Read the [case study](https://federicaercole.com/shop/) (only in italian).
 ![Cart page](https://federicaercole.com/images/shop/shop-4-big.webp)
 
 ## About this repository
-It has two different branch:
+It has two different branches:
 - main: the original version of this project, only with front end
-- api-integration: the improved version, with API and some code refactored. You can notice a lot of improvement between the two versions!
+- api-integration: the improved version, with API and some code refactored. **You can notice a lot of improvement between the two versions**!
 
 ## Features:
 - Product search
@@ -18,7 +18,7 @@ It has two different branch:
 - Breadcrumbs
 - Show products by category, sorting by alphabetical order or price
 - Accessible galleries
-- API (on the api-integration branch)
+- API (in the api-integration branch)
 
 [Watch video of form validation](https://federicaercole.com/images/shop/validation.mp4)  
 The form validation uses a "Reward Early, Punish Late" pattern, which consists of alerting the user when there are any errors within the input in the moment they leave the input and removing the error message immediately if they correct the input.
