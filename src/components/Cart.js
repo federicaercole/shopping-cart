@@ -3,15 +3,21 @@ import { infoIcon } from "./icons";
 import Button from "./Button";
 import QuantityInput from "./QuantityInput";
 import ErrorMessage from "./ErrorMessage";
-import { useContext, useState } from "react";
+import { useContext, useRef } from "react";
 import { CartContext } from "./CartContext";
+import { useValidateForm } from "./useValidateForm";
 
 function Cart() {
     const { cart, setCart, cartQuantity, setCartQuantity, changeQuantityButtons, handleQuantityInput } = useContext(CartContext);
-    const [messages, setMessages] = useState(Array(cartQuantity.length).fill(""));
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
     const totalPrice = cart.map((item, index) => cartQuantity[index] * item.price).reduce((prev, total) => prev + total, 0);
     const shippingFee = totalPrice >= 60 ? 0 : 8;
+    const inputRefs = useRef([]);
+    const { errorMessages, checkValidityOnBlur, checkValidityOnChange, isInvalid } = useValidateForm(cartQuantity.length);
+
+    function setInputRefs(element, index) {
+        inputRefs.current[index] = element;
+    }
 
     function deleteItem(id) {
         const index = cart.findIndex((item) => item.url === id);
@@ -19,40 +25,6 @@ function Cart() {
             return i !== index;
         }))
         setCart(cart.filter(item => item.url !== id));
-    }
-
-    function checkValidityOnBlur(target, index) {
-        const input = document.querySelector(`#${target.url}`);
-        if (!input.validity.valid) {
-            input.setAttribute("aria-invalid", "true");
-            const errorMessages = messages.map((message, i) => {
-                if (i === index) {
-                    if (input.validity.rangeUnderflow) {
-                        return "You must have at least a quantity of 1";
-                    } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
-                        return "You must write a valid number";
-                    } else if (input.validity.rangeOverflow) {
-                        return `Please write a quantity equal or less than ${target.quantity}`;
-                    }
-                }
-                return message;
-            });
-            setMessages(errorMessages);
-        }
-    }
-
-    function checkValidityOnChange(target, index) {
-        const input = document.querySelector(`#${target}`);
-        if (input.validity.valid) {
-            input.setAttribute("aria-invalid", "false");
-            const errorMessages = messages.map((message, i) => {
-                if (i === index) {
-                    return "";
-                }
-                return message;
-            });
-            setMessages(errorMessages);
-        }
     }
 
     return (
@@ -69,12 +41,14 @@ function Cart() {
                                         <img src={`/images/${item.images_small[0]}`} alt={`Cover of ${item.name}`} />
                                         <p className="price">{item.price}<span>€</span></p>
                                         <div className="quantity">
-                                            <QuantityInput input={`${item.url}`} defaultValue={cartQuantity[index]} product={item}
-                                                onBlur={(e) => { checkValidityOnBlur(item, index); handleQuantityInput(e, `${item.url}`, item) }}
-                                                onChange={() => checkValidityOnChange(`${item.url}`, index)}
-                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, `${item.url}`); checkValidityOnChange(`${item.url}`, index); handleQuantityInput(e, `${item.url}`, item) }} />
+                                            <QuantityInput defaultValue={cartQuantity[index]} product={item}
+                                                onBlur={(e) => { checkValidityOnBlur(inputRefs.current[index], item, index); handleQuantityInput(e, inputRefs.current[index], item) }}
+                                                onChange={() => checkValidityOnChange(inputRefs.current[index], index)}
+                                                handleButtons={(e) => { changeQuantityButtons(e, item.quantity, inputRefs.current[index]); checkValidityOnChange(inputRefs.current[index], index); handleQuantityInput(e, inputRefs.current[index], item) }}
+                                                ref={(element) => setInputRefs(element, index)}
+                                                isInvalid={isInvalid(index)} />
                                             <Button handle={() => deleteItem(item.url)}>Remove <span className="visually-hidden">{item.name} from cart</span></Button>
-                                            <ErrorMessage message={messages[index]} id={item.url} />
+                                            <ErrorMessage message={errorMessages[index]} id={item.url} />
                                         </div>
                                     </div>
                                 </article>)}

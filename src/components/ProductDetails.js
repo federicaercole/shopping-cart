@@ -7,15 +7,17 @@ import QuantityInput from './QuantityInput';
 import Button from './Button';
 import { CartContext } from './CartContext';
 import Breadcrumbs from './Breadcrumbs';
+import { useValidateForm } from './useValidateForm';
 
 function ProductDetails() {
     const { handleQuantityInput, changeQuantityButtons } = useContext(CartContext);
     const product = useLoaderData();
     const [zoom, setZoom] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [message, setMessage] = useState("");
     const featImgRef = useRef(null);
     const selectedImage = useRef(null);
+    const inputRef = useRef(null);
+    const { errorMessage, checkValidityOnBlur, checkValidityOnChange, isInvalid } = useValidateForm();
 
     const altImages = ["Cover of the game", "Gameboard and components", "Details of the components"];
     let currentImage = product.images_big[currentImageIndex];
@@ -29,28 +31,6 @@ function ProductDetails() {
             document.body.style.overflow = "unset";
         }
     }, [zoom])
-
-    function checkValidityOnBlur(target) {
-        const input = document.querySelector(`#${target}`);
-        if (!input.validity.valid) {
-            input.setAttribute("aria-invalid", "true");
-            if (input.validity.rangeUnderflow) {
-                setMessage("You must have at least a quantity of 1");
-            } else if (input.validity.valueMissing || input.validity.badInput || input.validity.stepMismatch) {
-                setMessage("You must write a valid number");
-            } else if (input.validity.rangeOverflow) {
-                setMessage(`Please write a quantity equal or less than ${product.quantity}`);
-            }
-        }
-    }
-
-    function checkValidityOnChange(target) {
-        const input = document.querySelector(`#${target}`);
-        if (input.validity.valid) {
-            setMessage("");
-            input.setAttribute("aria-invalid", "false");
-        }
-    }
 
     function findIndexOfImage(target) {
         const imagesArray = [...product.images_small];
@@ -101,13 +81,15 @@ function ProductDetails() {
                     {product.quantity <= 10 && product.quantity !== 1 && product.quantity !== 0 && <p className="warning">{infoIcon} Only {product.quantity} copies available!</p>}
                     {product.quantity === 1 && <p className="warning">{infoIcon} Only one copy available!</p>}
                     <div>
-                        <QuantityInput defaultValue={1} product={product} input="quantity"
-                            onBlur={() => checkValidityOnBlur("quantity")}
-                            onChange={() => checkValidityOnChange("quantity")}
-                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, "quantity"); checkValidityOnChange("quantity") }} />
+                        <QuantityInput product={product}
+                            onBlur={() => checkValidityOnBlur(inputRef.current, product)}
+                            onChange={() => checkValidityOnChange(inputRef.current)}
+                            handleButtons={(e) => { changeQuantityButtons(e, product.quantity, inputRef.current); checkValidityOnChange(inputRef.current) }}
+                            ref={inputRef}
+                            isInvalid={isInvalid()} />
                     </div>
-                    <ErrorMessage message={message} id={product.url} />
-                    <Button handle={(e) => handleQuantityInput(e, "quantity", product)} className="cart" disabled={!product.quantity}>{cartIcon} Add to cart</Button>
+                    <ErrorMessage message={errorMessage} id={product.url} />
+                    <Button handle={(e) => handleQuantityInput(e, inputRef.current, product)} className="cart" disabled={!product.quantity}>{cartIcon} Add to cart</Button>
                 </div>
             </main>
             {zoom && <Modal close={closeZoom} images={product.images_big} currentImage={currentImage} altCurrentImage={altCurrentImage} currentImageIndex={currentImageIndex}

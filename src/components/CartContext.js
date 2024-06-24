@@ -7,18 +7,17 @@ export const CartContextProvider = ({ children }) => {
     const [cartQuantity, setCartQuantity] = useState([]);
 
     function handleQuantityInput(e, input, product) {
-        const quantityInput = document.querySelector(`#${input}`);
-        if (!quantityInput.checkValidity()) {
+        if (!input.checkValidity()) {
             e.preventDefault();
         } else {
             const index = cart.findIndex((item) => item.url === product.url);
             if (index < 0) {
                 setCart(cart.concat(product));
-                setCartQuantity(cartQuantity.concat(Number(quantityInput.value)));
+                setCartQuantity(cartQuantity.concat(Number(input.value)));
             } else if (cartQuantity[index]) {
                 const newQuantity = cartQuantity.map((item, i) => {
                     if (i === index) {
-                        return Number(quantityInput.value);
+                        return Number(input.value);
                     } else {
                         return item;
                     }
@@ -29,14 +28,13 @@ export const CartContextProvider = ({ children }) => {
     }
 
     function changeQuantityButtons(e, articleQuantity, input) {
-        const quantityInput = document.querySelector(`#${input}`);
         if (e.target.value === "plus") {
-            if (quantityInput.value < articleQuantity) {
-                quantityInput.value = Number(quantityInput.value) + 1;
+            if (input.value < articleQuantity) {
+                input.value = Number(input.value) + 1;
             }
         } else {
-            if (quantityInput.value > 1) {
-                quantityInput.value = Number(quantityInput.value) - 1;
+            if (input.value > 1) {
+                input.value = Number(input.value) - 1;
             }
         }
     }
