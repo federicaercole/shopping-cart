@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { logo, cartIcon, userIcon } from "./icons";
 import SearchBar from "./SearchBar";
 import { CartContext } from "./CartContext";
@@ -10,12 +10,21 @@ function Header({ query, setQuery, setSubmittedInput }) {
     const [width, setWidth] = useState(window.innerWidth / fontSize); //value in rem
     const totalObj = cartQuantity.reduce((prev, total) => prev + total, 0);
 
-    window.addEventListener("resize", () => {
-        setWidth(window.innerWidth / fontSize); //value in rem
-    });
+    useEffect(() => {
+        function handleResize() {
+            setWidth(window.innerWidth / fontSize); //value in rem
+        }
 
-    const size800pxInRem = (800 / fontSize);
-    const size950pxInRem = (950 / fontSize);
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        }
+    }, [])
+
+    function getClassName(windowWidth) {
+        return width < (windowWidth / fontSize) ? "visually-hidden" : "";
+    }
 
     return (
         <header>
@@ -23,11 +32,11 @@ function Header({ query, setQuery, setSubmittedInput }) {
                 <Link to="/" className="logo">
                     {logo} Good Board Games
                 </Link>
-                {width >= size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSubmittedInput={setSubmittedInput} />}
-                <Link to="/" className="login">{userIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Login</span></Link>
+
+                <Link to="/" className="login">{userIcon} <span className={getClassName(800)}>Login</span></Link>
                 <Link to="/cart" className="cart">
-                    {cartIcon} <span className={width < size800pxInRem ? "visually-hidden" : ""}>Cart</span> {totalObj > 0 && <span className="number-objects" aria-live="polite" key={totalObj}><span className="visually-hidden">Items:</span> {totalObj}</span>}</Link>
-                {width < size950pxInRem && <SearchBar query={query} setQuery={setQuery} setSubmittedInput={setSubmittedInput} />}
+                    {cartIcon} <span className={getClassName(800)}>Cart</span> {totalObj > 0 && <span className="number-objects" aria-live="polite" key={totalObj}><span className="visually-hidden">Items:</span> {totalObj}</span>}</Link>
+                <SearchBar query={query} setQuery={setQuery} setSubmittedInput={setSubmittedInput} />
 
             </div>
             <nav aria-label="Categories">

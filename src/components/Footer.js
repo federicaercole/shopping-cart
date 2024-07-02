@@ -9,8 +9,10 @@ function Footer() {
             <section aria-label="Social networks">
                 <span className="logo">{logo} Good Board Games</span>
                 <p>The best place to find the Good Board Games</p>
-                <Link to="/" aria-labelledby="twitter">{twitter}</Link>
-                <Link to="/" aria-labelledby="fb">{fb}</Link>
+                <div>
+                    <Link to="/" aria-labelledby="twitter">{twitter}</Link>
+                    <Link to="/" aria-labelledby="fb">{fb}</Link>
+                </div>
             </section>
             <section aria-labelledby="support">
                 <nav aria-labelledby="support">
@@ -35,8 +37,8 @@ function Footer() {
                     </ul>
                 </nav>
             </section>
-            <div className="notice"><Link to="/">Conditions of Use</Link><Link to="/">Privacy Policy</Link></div>
         </div>
+        <div className="notice"><Link to="/">Conditions of Use</Link><Link to="/">Privacy Policy</Link></div>
         <div className="info"><a href="https://github.com/federicaercole" aria-labelledby="github">{github}</a> Developed by Federica Ercole. All the images used in this site belong to their respective owners.
         </div>
     </footer >)
